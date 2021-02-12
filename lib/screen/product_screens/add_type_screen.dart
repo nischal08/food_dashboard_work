@@ -1,10 +1,12 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:food/Responsive.dart';
 
 import 'package:food/constants/customColors.dart';
+import 'package:food/constants/customFonts.dart';
 import 'package:food/controller/productScreenControllers/quantityScreenController.dart';
 import 'package:food/controller/productScreenControllers/typeController.dart';
 
@@ -184,35 +186,43 @@ class AddTypeScreen extends StatelessWidget {
   }
 
   Widget _uploadImg({String name}) {
-    return Column(
-      crossAxisAlignment: _typeControllerState.image == null
-          ? CrossAxisAlignment.stretch
-          : CrossAxisAlignment.start,
-      children: [
-        Text(
-          name,
-          style: TextStyle(
-            fontWeight: FontWeight.w600,
-            fontSize: 16,
+    return Container(
+      child: Column(
+        crossAxisAlignment: _typeControllerState.image == null
+            ? CrossAxisAlignment.stretch
+            : CrossAxisAlignment.start,
+        children: [
+          Text(
+            name,
+            style: TextStyle(
+              fontWeight: FontWeight.w600,
+              fontSize: xHeaderFont,
+            ),
           ),
-        ),
-        _typeControllerState.image == null
-            ? UploadImgBtn(onPressed: () async {
-                await _typeControllerState.getImage();
-              })
-            : Padding(
-                padding: const EdgeInsets.only(top: 5.0),
-                child: _typeImg(),
-              ),
-      ],
+          _typeControllerState.image == null
+              
+              ? UploadImgBtn(
+                  onPressed: () {
+                     _typeControllerState.getImage();
+                  },
+                )
+                : _typeImg()
+        ],
+      ),
     );
   }
 
   Widget _typeImg() {
     return Container(
-      width: 40,
-      height: 40,
-      child: Image.file(_typeControllerState.image),
+      width: 36,
+      height: 36,
+      child: kIsWeb
+          ? Image.network(
+              _typeControllerState.image,
+            )
+          : Image.file(
+              _typeControllerState.image,
+            ),
     );
   }
 

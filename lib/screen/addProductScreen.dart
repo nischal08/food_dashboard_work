@@ -3,16 +3,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
+import 'package:food/constants/constants.dart';
 import 'package:food/constants/customColors.dart';
 import 'package:food/constants/customFonts.dart';
 import 'package:food/controller/addProductController.dart';
 import 'package:food/controller/productController.dart';
 import 'package:food/responsive.dart';
-
-import 'package:food/util/commonMethods.dart';
 import 'package:food/util/customWidgets.dart';
-
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
@@ -21,8 +18,7 @@ class AddProductPage extends StatelessWidget {
   AddProductController _addItemControllerState;
   ProductController _productControllerState;
 
-  OutlineInputBorder borderData;
-  Border borderTextField;
+ 
 
   var commonHeight;
   @override
@@ -31,17 +27,8 @@ class AddProductPage extends StatelessWidget {
 
     _addItemControllerState = Provider.of<AddProductController>(context);
     _productControllerState = Provider.of<ProductController>(context);
-    borderData = OutlineInputBorder(
-      borderRadius: BorderRadius.circular(5),
-      borderSide: BorderSide(
-        width: 0.25,
-        color: CustomColors.borderMedGreyForChkBox,
-      ),
-    );
-    borderTextField = Border.all(
-      width: 0.25,
-      color: CustomColors.borderMedGreyForChkBox,
-    );
+    
+    
 
     return _body(context);
   }
@@ -58,14 +45,23 @@ class AddProductPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 SizedBox(),
-                _saveItemBtn(context),
+                saveItemBtn(
+                  onPressed: () {
+                    print("Item Added");
+                    _productControllerState.onAddProductClick();
+                    _addItemControllerState.getCategoryCheckItems();
+                    _addItemControllerState.getAddonCheckItems();
+                  },
+                ),
               ],
             ),
             Row(
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                _backBtn(context),
+                backBtn(onPressed: () {
+                  _productControllerState.onAddProductClick();
+                }),
                 SizedBox(),
               ],
             ),
@@ -144,8 +140,10 @@ class AddProductPage extends StatelessWidget {
   Widget _itemInfo() {
     return Container(
       decoration: BoxDecoration(
-        border: Border.all(color: Colors.grey.shade300),
-        borderRadius: BorderRadius.circular(5),
+        border: kBorderTextFieldAndAddCard,
+        borderRadius: BorderRadius.circular(
+          5,
+        ),
         color: CustomColors.colorInfoThumbnailHeader,
       ),
       child: Column(
@@ -172,7 +170,7 @@ class AddProductPage extends StatelessWidget {
   Widget _itemThumbnail() {
     return Container(
       decoration: BoxDecoration(
-        border: Border.all(color: Colors.grey.shade300),
+        border: kBorderTextFieldAndAddCard,
         borderRadius: BorderRadius.circular(5),
         color: CustomColors.colorInfoThumbnailHeader,
       ),
@@ -232,7 +230,6 @@ class AddProductPage extends StatelessWidget {
       desktop: _webTabResImgPrev(),
       tablet: _mobResImgPrev(),
     );
-   
   }
 
   Widget _mobResImgPrev() {
@@ -329,11 +326,13 @@ class AddProductPage extends StatelessWidget {
             width: 190,
             child: ClipRRect(
               borderRadius: BorderRadius.circular(circleRadiusVal ?? 0),
-              child:kIsWeb? Image.network(
-                _addItemControllerState.image,
-              ):Image.file(
-                _addItemControllerState.image,
-              ),
+              child: kIsWeb
+                  ? Image.network(
+                      _addItemControllerState.image,
+                    )
+                  : Image.file(
+                      _addItemControllerState.image,
+                    ),
             ),
           );
   }
@@ -387,7 +386,7 @@ class AddProductPage extends StatelessWidget {
   Widget _category() {
     return Container(
       decoration: BoxDecoration(
-        border: Border.all(color: Colors.grey.shade300),
+        border: kBorderTextFieldAndAddCard,
         borderRadius: BorderRadius.circular(5),
         color: CustomColors.colorInfoThumbnailHeader,
       ),
@@ -414,7 +413,7 @@ class AddProductPage extends StatelessWidget {
   Widget _extra() {
     return Container(
       decoration: BoxDecoration(
-        border: Border.all(color: Colors.grey.shade300),
+        border: kBorderTextFieldAndAddCard,
         borderRadius: BorderRadius.circular(5),
         color: CustomColors.colorInfoThumbnailHeader,
       ),
@@ -650,7 +649,7 @@ class AddProductPage extends StatelessWidget {
         Container(
           width: double.infinity,
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(5), border: borderTextField),
+              borderRadius: BorderRadius.circular(5), border: kBorderTextFieldAndAddCard),
           height: 35,
           child: DropdownButton(
             isExpanded: true,
@@ -727,12 +726,12 @@ class AddProductPage extends StatelessWidget {
                   ]
                 : null,
             decoration: InputDecoration(
-                focusedBorder: borderData,
-                enabledBorder: borderData,
+                focusedBorder: kBorderInputData,
+                enabledBorder: kBorderInputData,
                 contentPadding: EdgeInsets.only(left: 15.0),
                 hintText: hint,
                 hintStyle: TextStyle(
-                  color: Colors.black54,
+                  color: CustomColors.textLightGrey,
                   fontSize: xBodyFont,
                 ),
                 filled: true,
@@ -763,8 +762,8 @@ class AddProductPage extends StatelessWidget {
             maxLines: 6,
             keyboardType: TextInputType.multiline,
             decoration: InputDecoration(
-                focusedBorder: borderData,
-                enabledBorder: borderData,
+                focusedBorder: kBorderInputData,
+                enabledBorder: kBorderInputData,
                 contentPadding: EdgeInsets.only(
                   left: 15.0,
                   top: 25.0,
@@ -797,7 +796,7 @@ class AddProductPage extends StatelessWidget {
         Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(5),
-            border: borderTextField,
+            border: kBorderTextFieldAndAddCard,
           ),
           height: commonHeight,
           child: DropdownButton(
@@ -844,59 +843,6 @@ class AddProductPage extends StatelessWidget {
           ),
         )
       ],
-    );
-  }
-
-  Widget _backBtn(context) {
-    return GestureDetector(
-      onTap: () {
-        _productControllerState.onAddProductClick();
-      },
-      child: Container(
-        child: Row(
-          children: [
-            Icon(
-              Icons.arrow_back_ios_rounded,
-              size: 18,
-              color: Colors.black87,
-            ),
-            SizedBox(
-              width: 4,
-            ),
-            Text(
-              "Back",
-              style: TextStyle(
-                color: Colors.black87,
-                fontSize: xBodyFont,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _saveItemBtn(context) {
-    return Container(
-      width: 130,
-      height: commonHeight,
-      child: RaisedButton(
-        onPressed: () {
-          print("Item Added");
-          _productControllerState.onAddProductClick();
-          _addItemControllerState.getCategoryCheckItems();
-          _addItemControllerState.getAddonCheckItems();
-        },
-        elevation: 1,
-        child: Text(
-          "Save Item",
-          style: TextStyle(color: Colors.white, fontSize: xHeaderFont),
-        ),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(5.0),
-        ),
-        color: CustomColors.green,
-      ),
     );
   }
 }

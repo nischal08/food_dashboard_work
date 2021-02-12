@@ -1,13 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:food/constants/constants.dart';
 import 'package:food/constants/customColors.dart';
+import 'package:food/constants/customFonts.dart';
 import 'package:food/controller/productScreenControllers/quantityScreenController.dart';
 import 'package:food/screen/product_screens/add_quantity_screen.dart';
-import 'package:food/util/commonMethods.dart';
 import 'package:food/util/customWidgets.dart';
 import 'package:food/util/searchBarItems.dart';
-import 'package:get/get.dart';
-
 import 'package:provider/provider.dart';
 
 // ignore: must_be_immutable
@@ -17,21 +16,13 @@ class QuantityScreen extends StatelessWidget {
 
   double commonHeight;
 
-  BoxShadow boxShad = BoxShadow(
-      color: Colors.grey.withOpacity(0.5),
-      spreadRadius: 2,
-      blurRadius: 4,
-      offset: Offset(2, 2));
+  
 
   @override
   Widget build(BuildContext context) {
     _quantityControllerState = Provider.of<QuantityController>(context);
     // _addProductControllerState = Provider.of<AddProductController>(context);
-    commonHeight = getDeviceType()
-        ? 30
-        : Get.context.isPortrait
-            ? (Get.height * .035)
-            : (Get.height * .05);
+    commonHeight = 35;
 
     return _body();
   }
@@ -42,11 +33,11 @@ class QuantityScreen extends StatelessWidget {
           ? AddQuantityScreen()
           : Container(
               height: double.infinity,
-              color: Color(0xffF4F4F4),
+              color: CustomColors.borderLightGreyLineBg,
               child: SingleChildScrollView(
                 child: Container(
                   padding: EdgeInsets.symmetric(
-                    horizontal: 30,
+                    horizontal: 32,
                     vertical: 25,
                   ),
                   child: Column(
@@ -54,7 +45,7 @@ class QuantityScreen extends StatelessWidget {
                     children: [
                       _searchBarItems(),
                       SizedBox(
-                        height: 20,
+                        height: 25,
                       ),
                       Container(
                         child: _quantityDataTable(),
@@ -69,13 +60,13 @@ class QuantityScreen extends StatelessWidget {
 
   Widget _quantityDataTable() {
     return Container(
-      //elevation: 1,
+      
       width: 250,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(5),
         boxShadow: [
-          boxShad,
+          kGeneralBoxShadow,
         ],
       ),
 
@@ -103,12 +94,12 @@ class QuantityScreen extends StatelessWidget {
                         child: Padding(
                       padding: EdgeInsets.only(
                         top: 8,
-                        bottom: 10,
+                        bottom: 13,
                       ),
                       child: Text(
                         head.toString(),
                         style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 14),
+                            fontWeight: FontWeight.bold, fontSize: xHeaderFont),
                       ),
                     ))
                 ],
@@ -148,8 +139,7 @@ class QuantityScreen extends StatelessWidget {
         child: Text(
           text,
           style: TextStyle(
-              // fontFamily:
-              //     "Roboto",
+              fontSize: xBodyFont,
               ),
         ),
       ),

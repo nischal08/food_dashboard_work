@@ -34,18 +34,17 @@ class AddProductController extends ChangeNotifier {
   Future getImage() async {
     final pickedFile = await picker.getImage(source: ImageSource.gallery);
     if (pickedFile != null) {
-if (kIsWeb) {
-     image=pickedFile.path;
-    }else{
-      image=File(pickedFile.path);
-    }
+      if (kIsWeb) {
+        image = pickedFile.path;
+      } else {
+        image = File(pickedFile.path);
+      }
 
       // image = File(pickedFile.path);
       notifyListeners();
     } else {
       print("Images");
     }
-    
   }
 
   Map<String, bool> categoryList = {

@@ -1,14 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:food/Responsive.dart';
-
+import 'package:food/constants/constants.dart';
 import 'package:food/constants/customColors.dart';
 import 'package:food/constants/customFonts.dart';
 import 'package:food/controller/productScreenControllers/quantityScreenController.dart';
-
-import 'package:food/util/commonMethods.dart';
-
+import 'package:food/util/customWidgets.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
@@ -21,13 +17,14 @@ class AddQuantityScreen extends StatelessWidget {
   var commonHeight;
   @override
   Widget build(BuildContext context) {
-    commonHeight = 35;
+    commonHeight = 35.0;
 
     _quantityControllerState = Provider.of<QuantityController>(context);
     borderData = OutlineInputBorder(
       borderRadius: BorderRadius.circular(5),
       borderSide: BorderSide(
-        color: Color(0xffD9D9D9),
+        width: 0.25,
+        color: CustomColors.borderMedGreyForChkBox,
       ),
     );
     return _body(context);
@@ -49,14 +46,23 @@ class AddQuantityScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               SizedBox(),
-              _saveItemBtn(context),
+              saveItemBtn(
+                onPressed: () {
+                  print("Item Added");
+                  _quantityControllerState.onAddQuantityClick();
+                },
+              ),
             ],
           ),
           Row(
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              _backBtn(context),
+              backBtn(
+                onPressed: () {
+                  _quantityControllerState.onAddQuantityClick();
+                },
+              ),
               SizedBox(),
             ],
           ),
@@ -69,70 +75,26 @@ class AddQuantityScreen extends StatelessWidget {
     );
   }
 
-  Widget _backBtn(context) {
-    return GestureDetector(
-      onTap: () {
-        _quantityControllerState.onAddQuantityClick();
-      },
-      child: Container(
-        child: Row(
-          children: [
-            Icon(
-              Icons.arrow_back_ios_rounded,
-              size: 18,
-              color: Colors.black87,
-            ),
-            SizedBox(
-              width: 4,
-            ),
-            Text(
-              "Back",
-              style: TextStyle(color: Colors.black87, fontSize: xBodyFont),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _saveItemBtn(context) {
-    return Container(
-      height: commonHeight,
-      child: RaisedButton(
-        onPressed: () {
-          print("Item Added");
-          _quantityControllerState.onAddQuantityClick();
-        },
-        elevation: 1,
-        child: Text(
-          "Save Item",
-          style: TextStyle(
-              color: Colors.white, fontSize: xHeaderFont, fontFamily: "Roboto"),
-        ),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(5.0),
-        ),
-        color: CustomColors.green,
-      ),
-    );
-  }
-
   Widget _itemInfo() {
     return Container(
-      width: 320,
+      width: 370,
       decoration: BoxDecoration(
-        border: Border.all(color: Colors.grey.shade300),
+        border: kBorderTextFieldAndAddCard,
         borderRadius: BorderRadius.circular(5),
         color: CustomColors.colorInfoThumbnailHeader,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 30),
-            child: Text(
-              "Quantity Information",
-              style: TextStyle(fontWeight: FontWeight.bold),
+          Container(
+            height: 40,
+            child: Padding(
+              padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 30),
+              child: Text(
+                "Quantity Information",
+                style: TextStyle(
+                    fontWeight: FontWeight.bold, fontSize: xHeaderFont),
+              ),
             ),
           ),
           _itemInfoBody()
@@ -143,7 +105,7 @@ class AddQuantityScreen extends StatelessWidget {
 
   Widget _itemInfoBody() {
     return Container(
-      height: Responsive.isMobile(Get.context) ? 100 : 105,
+      height: 111,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.only(
           bottomRight: Radius.circular(5),
@@ -167,48 +129,10 @@ class AddQuantityScreen extends StatelessWidget {
   }
 
   Widget _itemName() {
-    return _eachItem(
+    return eachTextFieldItem(
       name: "Total Quantity",
       hint: "Enter quantity",
       onChange: (newVal) => _quantityControllerState.setName(newVal),
-    );
-  }
-
-  Widget _eachItem({String name, String hint, Function onChange(newVal)}) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          name,
-          style: TextStyle(
-            fontSize: xBodyFont,
-          ),
-        ),
-        SizedBox(
-          height: 5,
-        ),
-        Container(
-          height: 35,
-          child: TextFormField(
-            onChanged: (String newVal) {
-              onChange(newVal);
-            },
-            keyboardType: TextInputType.name,
-            decoration: InputDecoration(
-                focusedBorder: borderData,
-                enabledBorder: borderData,
-                contentPadding: EdgeInsets.only(left: 15.0),
-                hintText: hint,
-                hintStyle: TextStyle(
-                  color: CustomColors.textLightGrey,
-                  fontSize: xBodyFont,
-                ),
-                filled: true,
-                fillColor: Colors.white),
-            enabled: true,
-          ),
-        )
-      ],
     );
   }
 }

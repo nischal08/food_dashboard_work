@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:food/constants/constants.dart';
 import 'package:food/constants/customColors.dart';
 import 'package:food/constants/customFonts.dart';
 
@@ -45,23 +47,119 @@ class CustomCheckbox extends StatelessWidget {
   }
 }
 
-Widget UploadImgBtn({Function onPressed}) {
-  return RaisedButton.icon(
-    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-    elevation: 0,
-    onPressed: onPressed,
-    icon: Padding(
-      padding: const EdgeInsets.only(left: 5),
-      child: Icon(
-        Icons.add_a_photo,
-        size: 20,
+
+Widget backBtn({Function onPressed,String name}) {
+    return GestureDetector(
+      onTap:onPressed,
+      child: Container(
+        child: Row(
+          children: [
+            Icon(
+              Icons.arrow_back_ios_rounded,
+              size: 12,
+               color: CustomColors.textLightGrey,
+            ),
+            SizedBox(
+              width: 4,
+            ),
+            Text(
+             name?? "Back",
+              style: TextStyle(
+                color: CustomColors.textLightGrey,
+                fontSize: xBodyFont,
+              ),
+            ),
+          ],
+        ),
       ),
-    ),
-    label: Padding(
-      padding: const EdgeInsets.only(top: 8.0, bottom: 8.0, right: 5),
-      child: Text(
-        "Upload Image",
-        style: TextStyle(fontSize: xHeaderFont),
+    );
+  }
+
+
+  Widget eachTextFieldItem({
+    String name,
+    String hint,
+    bool isNum = false,
+    Function onChange,
+  }) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          name,
+          style: TextStyle(fontSize: xBodyFont),
+        ),
+        SizedBox(
+          height: 10,
+        ),
+        Container(
+          height: 35,
+          child: TextFormField(
+            onChanged: 
+              onChange
+          ,
+            keyboardType: isNum ? TextInputType.number : TextInputType.name,
+            inputFormatters: isNum
+                ? <TextInputFormatter>[
+                    FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+                  ]
+                : null,
+            decoration: InputDecoration(
+                focusedBorder: kBorderInputData,
+                enabledBorder: kBorderInputData,
+                contentPadding: EdgeInsets.only(left: 15.0),
+                hintText: hint,
+                hintStyle: TextStyle(
+                  color: CustomColors.textLightGrey,
+                  fontSize: xBodyFont,
+                ),
+                filled: true,
+                fillColor: Colors.white),
+            enabled: true,
+          ),
+        )
+      ],
+    );
+  }
+ Widget saveItemBtn({Function onPressed,String name}) {
+    return Container(
+      width: 130,
+      height: commonHeight,
+      child: RaisedButton(
+        onPressed:onPressed,
+        elevation: 1,
+        child: Text(
+          name??"Save Item",
+          style: TextStyle(color: Colors.white, fontSize: xHeaderFont),
+        ),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(5.0),
+        ),
+        color: CustomColors.green,
+      ),
+    );
+  }
+
+Widget UploadImgBtn({Function onPressed}) {
+  return Container(
+    height: commonHeight,
+    child: RaisedButton.icon(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+      elevation: 0,
+      onPressed: onPressed,
+      icon: Padding(
+        padding: const EdgeInsets.only(left: 5),
+        child: Icon(
+          Icons.add_a_photo,
+          size: 20,
+        ),
+      ),
+      label: Padding(
+        padding: const EdgeInsets.only(top: 8.0, bottom: 8.0, right: 5),
+        child: Text(
+          "Upload Image",
+          style: TextStyle(fontSize: xHeaderFont),
+        ),
       ),
     ),
   );
@@ -96,7 +194,7 @@ class EntriesShowBtn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 150,
+      width: 160,
       height: commonHeight,
       child: RaisedButton.icon(
         padding: EdgeInsets.zero,
@@ -104,7 +202,7 @@ class EntriesShowBtn extends StatelessWidget {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
         icon: Icon(
           Icons.menu,
-          size: 18,
+          size: 16,
         ),
         label: Transform.translate(
           offset: Offset(-5, 0),

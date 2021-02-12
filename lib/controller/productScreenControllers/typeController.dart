@@ -1,11 +1,12 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 class TypeController extends ChangeNotifier {
-  File image;
-   final picker = ImagePicker();
+  var image;
+  final picker = ImagePicker();
   List infoList = [
     [
       "Veg",
@@ -39,7 +40,13 @@ class TypeController extends ChangeNotifier {
   Future getImage() async {
     final pickedFile = await picker.getImage(source: ImageSource.gallery);
     if (pickedFile != null) {
-      image = File(pickedFile.path);
+      if (kIsWeb) {
+        image = pickedFile.path;
+      } else {
+        image = File(pickedFile.path);
+      }
+
+      // image = File(pickedFile.path);
       notifyListeners();
     } else {
       print("Images");
@@ -47,10 +54,10 @@ class TypeController extends ChangeNotifier {
   }
 
   String _typeName;
- String get typeName => _typeName;
+  String get typeName => _typeName;
 
- set typeName(String value) => _typeName = value;
-setName(String val) {
+  set typeName(String value) => _typeName = value;
+  setName(String val) {
     typeName = val;
     notifyListeners();
     print(typeName);
