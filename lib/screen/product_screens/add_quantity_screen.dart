@@ -12,65 +12,65 @@ import 'package:provider/provider.dart';
 class AddQuantityScreen extends StatelessWidget {
   QuantityController _quantityControllerState;
 
-  OutlineInputBorder borderData;
-
   var commonHeight;
   @override
   Widget build(BuildContext context) {
     commonHeight = 35.0;
 
     _quantityControllerState = Provider.of<QuantityController>(context);
-    borderData = OutlineInputBorder(
-      borderRadius: BorderRadius.circular(5),
-      borderSide: BorderSide(
-        width: 0.25,
-        color: CustomColors.borderMedGreyForChkBox,
-      ),
-    );
+
     return _body(context);
   }
 
   Widget _body(context) {
-    return Container(
-      width: Get.width,
-      padding: EdgeInsets.symmetric(
-        horizontal: 32,
-        vertical: 20,
-      ),
-      color: CustomColors.borderLightGreyLineBg,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return Expanded(
+          child: Container(
+            height: double.infinity,
+        width: Get.width,
+       
+        color: CustomColors.borderLightGreyLineBg,
+        child: SingleChildScrollView(
+                child: Container(
+                   padding: EdgeInsets.symmetric(
+          horizontal: 32,
+          vertical: 20,
+        ),
+                  child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            
             children: [
-              SizedBox(),
-              saveItemBtn(
-                onPressed: () {
-                  print("Item Added");
-                  _quantityControllerState.onAddQuantityClick();
-                },
+              Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    SizedBox(),
+                    saveItemBtn(
+                      onPressed: () {
+                        print("Item Added");
+                        _quantityControllerState.onAddQuantityClick();
+                      },
+                    ),
+                  ],
               ),
+              Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    backBtn(
+                      onPressed: () {
+                        _quantityControllerState.onAddQuantityClick();
+                      },
+                    ),
+                    SizedBox(),
+                  ],
+              ),
+              SizedBox(
+                  height: 20,
+              ),
+              _itemInfo(),
             ],
           ),
-          Row(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              backBtn(
-                onPressed: () {
-                  _quantityControllerState.onAddQuantityClick();
-                },
-              ),
-              SizedBox(),
-            ],
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          _itemInfo(),
-        ],
+                ),
+        ),
       ),
     );
   }

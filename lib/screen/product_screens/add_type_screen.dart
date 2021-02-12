@@ -1,18 +1,13 @@
-import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:food/Responsive.dart';
-
 import 'package:food/constants/customColors.dart';
 import 'package:food/constants/customFonts.dart';
-import 'package:food/controller/productScreenControllers/quantityScreenController.dart';
 import 'package:food/controller/productScreenControllers/typeController.dart';
-
 import 'package:food/util/commonMethods.dart';
 import 'package:food/util/customWidgets.dart';
-
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
@@ -27,11 +22,7 @@ class AddTypeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     bodyHeight = MediaQuery.of(context).size.height -
         (MediaQuery.of(context).padding.top + kToolbarHeight + 20.0);
-    commonHeight = getDeviceType()
-        ? 30.0
-        : Get.context.isPortrait
-            ? (Get.height * .035)
-            : (Get.height * .05);
+    commonHeight = 35.0;
 
     _typeControllerState = Provider.of<TypeController>(context);
     borderData = OutlineInputBorder(
@@ -45,38 +36,40 @@ class AddTypeScreen extends StatelessWidget {
 
   Widget _body(context) {
     return Expanded(
-      child: SingleChildScrollView(
-        child: Container(
-          height: bodyHeight,
-          width: Get.width,
-          padding: EdgeInsets.symmetric(
-              horizontal: Responsive.isDesktop(context) ? 40 : 30,
-              vertical: 20),
-          color: CustomColors.borderLightGreyLineBg,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  SizedBox(),
-                  _saveItemBtn(context),
-                ],
-              ),
-              Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  _backBtn(context),
-                  SizedBox(),
-                ],
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              _itemInfo(),
-            ],
+      child: Container(
+        height: double.infinity,
+        width: Get.width,
+        color: CustomColors.borderLightGreyLineBg,
+        child: SingleChildScrollView(
+          child: Container(
+            padding: EdgeInsets.symmetric(
+                horizontal: Responsive.isDesktop(context) ? 40 : 30,
+                vertical: 20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    SizedBox(),
+                    _saveItemBtn(context),
+                  ],
+                ),
+                Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    _backBtn(context),
+                    SizedBox(),
+                  ],
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                _itemInfo(),
+              ],
+            ),
           ),
         ),
       ),
@@ -200,13 +193,12 @@ class AddTypeScreen extends StatelessWidget {
             ),
           ),
           _typeControllerState.image == null
-              
               ? UploadImgBtn(
                   onPressed: () {
-                     _typeControllerState.getImage();
+                    _typeControllerState.getImage();
                   },
                 )
-                : _typeImg()
+              : _typeImg()
         ],
       ),
     );
