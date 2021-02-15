@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food/controller/addProductController.dart';
 import 'package:food/controller/creditController.dart';
+import 'package:food/controller/productScreenControllers/addonController.dart';
 
 import 'package:food/controller/productScreenControllers/quantityScreenController.dart';
 import 'package:food/controller/productScreenControllers/typeController.dart';
@@ -33,6 +34,9 @@ void main() {
         ),
         ChangeNotifierProvider(
           create: (_) => TypeController(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => AddonController(),
         ),
         
       ],

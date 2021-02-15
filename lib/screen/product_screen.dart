@@ -19,7 +19,6 @@ class ProductScreen extends StatelessWidget {
 
   double commonHeight;
 
-  
   @override
   Widget build(BuildContext context) {
     _productControllerState = Provider.of<ProductController>(context);
@@ -56,13 +55,13 @@ class ProductScreen extends StatelessWidget {
 
   Widget _foodDataTable() {
     return Container(
-      //elevation: 1,
-
       decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(5),
-          boxShadow: [kGeneralBoxShadow]),
-
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(5),
+        boxShadow: [
+          kGeneralBoxShadow,
+        ],
+      ),
       child: Padding(
         padding: EdgeInsets.symmetric(vertical: 13.0, horizontal: 19),
         child: Table(
@@ -80,7 +79,6 @@ class ProductScreen extends StatelessWidget {
           border: TableBorder(
             horizontalInside:
                 BorderSide(width: 1, color: CustomColors.borderLightGreyLineBg),
-           
           ),
           children: [
             TableRow(children: [
@@ -290,5 +288,3 @@ class ProductScreen extends StatelessWidget {
     );
   }
 }
-
-
