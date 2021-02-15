@@ -16,8 +16,6 @@ class QuantityScreen extends StatelessWidget {
 
   double commonHeight;
 
-  
-
   @override
   Widget build(BuildContext context) {
     _quantityControllerState = Provider.of<QuantityController>(context);
@@ -28,10 +26,12 @@ class QuantityScreen extends StatelessWidget {
   }
 
   Widget _body() {
-    return Expanded(
-      child: _quantityControllerState.addQualtityFlag
-          ? AddQuantityScreen()
-          : Container(
+    return _quantityControllerState.addQualtityFlag
+        ? Expanded(
+            child: AddQuantityScreen(),
+          )
+        : Expanded(
+            child: Container(
               height: double.infinity,
               color: CustomColors.borderLightGreyLineBg,
               child: SingleChildScrollView(
@@ -55,12 +55,11 @@ class QuantityScreen extends StatelessWidget {
                 ),
               ),
             ),
-    );
+          );
   }
 
   Widget _quantityDataTable() {
     return Container(
-      
       width: 250,
       decoration: BoxDecoration(
         color: Colors.white,
@@ -69,7 +68,6 @@ class QuantityScreen extends StatelessWidget {
           kGeneralBoxShadow,
         ],
       ),
-
       child: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.only(
@@ -139,8 +137,8 @@ class QuantityScreen extends StatelessWidget {
         child: Text(
           text,
           style: TextStyle(
-              fontSize: xBodyFont,
-              ),
+            fontSize: xBodyFont,
+          ),
         ),
       ),
     );

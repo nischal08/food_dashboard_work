@@ -47,6 +47,50 @@ class CustomCheckbox extends StatelessWidget {
   }
 }
 
+Widget eachTextFieldItem(
+      {String name,
+      String hint,
+      bool isNum = false,
+      Function onChange(newVal)}) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          name,
+          style: TextStyle(fontSize: xBodyFont),
+        ),
+        SizedBox(
+          height: 10,
+        ),
+        Container(
+          height: 35,
+          child: TextFormField(
+            onChanged: (String newVal) {
+              onChange(newVal);
+            },
+            keyboardType: isNum ? TextInputType.number : TextInputType.name,
+            inputFormatters: isNum
+                ? <TextInputFormatter>[
+                    FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+                  ]
+                : null,
+            decoration: InputDecoration(
+                focusedBorder: kBorderInputData,
+                enabledBorder: kBorderInputData,
+                contentPadding: EdgeInsets.only(left: 15.0),
+                hintText: hint,
+                hintStyle: TextStyle(
+                  color: CustomColors.textLightGrey,
+                  fontSize: xBodyFont,
+                ),
+                filled: true,
+                fillColor: Colors.white),
+            enabled: true,
+          ),
+        )
+      ],
+    );
+  }
 
 Widget backBtn({Function onPressed,String name}) {
     return GestureDetector(
@@ -76,51 +120,7 @@ Widget backBtn({Function onPressed,String name}) {
   }
 
 
-  Widget eachTextFieldItem({
-    String name,
-    String hint,
-    bool isNum = false,
-    Function onChange,
-  }) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          name,
-          style: TextStyle(fontSize: xBodyFont),
-        ),
-        SizedBox(
-          height: 10,
-        ),
-        Container(
-          height: 35,
-          child: TextFormField(
-            onChanged: 
-              onChange
-          ,
-            keyboardType: isNum ? TextInputType.number : TextInputType.name,
-            inputFormatters: isNum
-                ? <TextInputFormatter>[
-                    FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
-                  ]
-                : null,
-            decoration: InputDecoration(
-                focusedBorder: kBorderInputData,
-                enabledBorder: kBorderInputData,
-                contentPadding: EdgeInsets.only(left: 15.0),
-                hintText: hint,
-                hintStyle: TextStyle(
-                  color: CustomColors.textLightGrey,
-                  fontSize: xBodyFont,
-                ),
-                filled: true,
-                fillColor: Colors.white),
-            enabled: true,
-          ),
-        )
-      ],
-    );
-  }
+ 
  Widget saveItemBtn({Function onPressed,String name}) {
     return Container(
       width: 130,
@@ -140,7 +140,7 @@ Widget backBtn({Function onPressed,String name}) {
     );
   }
 
-Widget UploadImgBtn({Function onPressed}) {
+Widget uploadImgBtn({Function onPressed}) {
   return Container(
     height: commonHeight,
     child: RaisedButton.icon(

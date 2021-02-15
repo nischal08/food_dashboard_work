@@ -37,7 +37,7 @@ class ProductScreen extends StatelessWidget {
               child: SingleChildScrollView(
                 child: Container(
                   padding: EdgeInsets.symmetric(
-                      horizontal: Responsive.isMobile(Get.context) ? 15 : 34,
+                      horizontal: Responsive.isMobile(Get.context) ? 15 : 32,
                       vertical: Responsive.isMobile(Get.context) ? 12 : 25),
                   child: Column(
                     children: [

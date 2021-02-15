@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:food/constants/constants.dart';
 import 'package:food/constants/customColors.dart';
 import 'package:food/constants/customFonts.dart';
 import 'package:food/controller/productController.dart';
@@ -15,8 +16,7 @@ class HomePage extends StatelessWidget {
   HomeController _homeControllerState;
   ProductController _productControllerState;
 
-  String url =
-      "https://scontent.fktm3-1.fna.fbcdn.net/v/t1.0-9/122777514_4658406440867560_8980358279672578081_o.jpg?_nc_cat=111&ccb=2&_nc_sid=09cbfe&_nc_ohc=K7SoRreE8DAAX_sx1qg&_nc_ht=scontent.fktm3-1.fna&oh=f00647a1eaff1045999abed17c74f31a&oe=60286AD1";
+ 
 
   var realOrientation;
   double height;
@@ -241,7 +241,7 @@ class HomePage extends StatelessWidget {
             CircleAvatar(
               radius: 16,
               backgroundImage: NetworkImage(
-                url,
+                profileImgUrl,
               ),
             ),
             SizedBox(

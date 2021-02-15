@@ -2,20 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:food/constants/customColors.dart';
 import 'package:food/constants/customFonts.dart';
-
-import 'package:food/util/commonMethods.dart';
 import 'package:food/util/customWidgets.dart';
-import 'package:get/get.dart';
 
 class SearchBarItems extends StatelessWidget {
   double _commonHeight;
   @override
   Widget build(BuildContext context) {
-    _commonHeight = getDeviceType()
-        ? 30
-        : context.isPortrait
-            ? (Get.height * .035)
-            : (Get.height * .05);
+    _commonHeight = 35;
+
     return Row(
       children: [
         customSizedBoxed(
@@ -43,7 +37,7 @@ class SearchBarItems extends StatelessWidget {
                     Text(
                       "Advance Credit",
                       style: TextStyle(
-                        fontSize: 13,
+                        fontSize: xHeaderFont,
                       ),
                     ),
                     Icon(Icons.keyboard_arrow_down),
@@ -55,35 +49,10 @@ class SearchBarItems extends StatelessWidget {
         ),
         customSizedBoxed(
           width: 13,
-          height: 0,
         ),
         Expanded(
             flex: 7,
-            child: Container(
-              height: _commonHeight,
-              child: RaisedButton(
-                elevation: 1,
-                onPressed: () {},
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.add,
-                      size: 14,
-                      color: Colors.white,
-                    ),
-                    Text(
-                      "Add New",
-                      style: TextStyle(color: Colors.white, fontSize: 13),
-                    ),
-                  ],
-                ),
-                color: Color(0xff7FC66E),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(5.0),
-                ),
-              ),
-            )),
+            child: addnewBtn(onPress: (){}),),
         customSizedBoxed(
           width: 20,
           height: 0,
@@ -100,10 +69,10 @@ class SearchBar extends StatelessWidget {
       offset: Offset(-4, 0),
       child: Container(
         decoration: BoxDecoration(
-            border:
-                Border.all(width: 0.25, color: CustomColors.borderMedGreyForChkBox),
+            border: Border.all(
+                width: 0.25, color: CustomColors.borderMedGreyForChkBox),
             borderRadius: BorderRadius.circular(5)),
-        height:35,
+        height: 35,
         child: TextField(
           decoration: InputDecoration(
               contentPadding: EdgeInsets.only(left: 15),

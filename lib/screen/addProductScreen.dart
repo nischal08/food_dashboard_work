@@ -212,7 +212,7 @@ class AddProductPage extends StatelessWidget {
           SizedBox(
             height: 50,
           ),
-          UploadImgBtn(onPressed: () {
+          uploadImgBtn(onPressed: () {
             _addItemControllerState.getImage();
           }),
           SizedBox(
@@ -615,7 +615,7 @@ class AddProductPage extends StatelessWidget {
   }
 
   Widget _actualPrice() {
-    return _eachItem(
+    return eachTextFieldItem(
       name: "Actual Price",
       hint: "Enter actual price",
       isNum: true,
@@ -624,7 +624,7 @@ class AddProductPage extends StatelessWidget {
   }
 
   Widget _offerPrice() {
-    return _eachItem(
+    return eachTextFieldItem(
       name: "Offer price",
       hint: "Enter offer price",
       isNum: true,
@@ -691,57 +691,14 @@ class AddProductPage extends StatelessWidget {
   }
 
   Widget _itemName() {
-    return _eachItem(
+    return eachTextFieldItem(
       name: "Item Name",
       hint: "Enter item Name",
       onChange: (newVal) => _addItemControllerState.setName(newVal),
     );
   }
 
-  Widget _eachItem(
-      {String name,
-      String hint,
-      bool isNum = false,
-      Function onChange(newVal)}) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          name,
-          style: TextStyle(fontSize: xBodyFont),
-        ),
-        SizedBox(
-          height: 10,
-        ),
-        Container(
-          height: 35,
-          child: TextFormField(
-            onChanged: (String newVal) {
-              onChange(newVal);
-            },
-            keyboardType: isNum ? TextInputType.number : TextInputType.name,
-            inputFormatters: isNum
-                ? <TextInputFormatter>[
-                    FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
-                  ]
-                : null,
-            decoration: InputDecoration(
-                focusedBorder: kBorderInputData,
-                enabledBorder: kBorderInputData,
-                contentPadding: EdgeInsets.only(left: 15.0),
-                hintText: hint,
-                hintStyle: TextStyle(
-                  color: CustomColors.textLightGrey,
-                  fontSize: xBodyFont,
-                ),
-                filled: true,
-                fillColor: Colors.white),
-            enabled: true,
-          ),
-        )
-      ],
-    );
-  }
+  
 
   Widget _itemDescription() {
     return Column(

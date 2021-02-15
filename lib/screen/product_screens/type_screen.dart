@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:food/constants/constants.dart';
 import 'package:food/constants/customColors.dart';
+import 'package:food/constants/customFonts.dart';
 import 'package:food/controller/productScreenControllers/typeController.dart';
 import 'package:food/screen/product_screens/add_type_screen.dart';
 import 'package:food/util/commonMethods.dart';
@@ -27,11 +29,7 @@ class TypeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     _typeControllerState = Provider.of<TypeController>(context);
     // _addProductControllerState = Provider.of<AddProductController>(context);
-    commonHeight = getDeviceType()
-        ? 30
-        : Get.context.isPortrait
-            ? (Get.height * .035)
-            : (Get.height * .05);
+    commonHeight = 35;
 
     return _body();
   }
@@ -48,7 +46,7 @@ class TypeScreen extends StatelessWidget {
                 child: Container(
                   color: Color(0xffF4F4F4),
                   padding: EdgeInsets.symmetric(
-                    horizontal: 30,
+                    horizontal: 32,
                     vertical: 25,
                   ),
                   child: Column(
@@ -77,7 +75,7 @@ class TypeScreen extends StatelessWidget {
         color: Colors.white,
         borderRadius: BorderRadius.circular(5),
         boxShadow: [
-          boxShad,
+         kGeneralBoxShadow,
         ],
       ),
 
@@ -90,9 +88,9 @@ class TypeScreen extends StatelessWidget {
           ),
           child: Table(
             columnWidths: {
-              0: FlexColumnWidth(3.0),
-              1: FlexColumnWidth(1.5),
-              2: FlexColumnWidth(2.0),
+              0: FlexColumnWidth(107),
+              1: FlexColumnWidth(127),
+              2: FlexColumnWidth(55.0 + 34.0),
             },
             border: TableBorder(
               horizontalInside: BorderSide(
@@ -107,13 +105,13 @@ class TypeScreen extends StatelessWidget {
                     TableCell(
                         child: Padding(
                       padding: EdgeInsets.only(
-                        top: 8,
-                        bottom: 10,
+                         top: 8,
+                        bottom: 13,
                       ),
                       child: Text(
                         head.toString(),
                         style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 14),
+                            fontWeight: FontWeight.bold, fontSize: xHeaderFont),
                       ),
                     ))
                 ],
@@ -132,7 +130,7 @@ class TypeScreen extends StatelessWidget {
                     child: Row(
                       children: [
                         SizedBox(
-                          width: 10,
+                          width: 6,
                         ),
                         _eachFoodType(eachList[1]),
                       ],
@@ -177,8 +175,7 @@ class TypeScreen extends StatelessWidget {
         child: Text(
           text,
           style: TextStyle(
-              // fontFamily:
-              //     "Roboto",
+            fontSize: xBodyFont,
               ),
         ),
       ),

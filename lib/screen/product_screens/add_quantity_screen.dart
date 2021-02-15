@@ -23,56 +23,54 @@ class AddQuantityScreen extends StatelessWidget {
   }
 
   Widget _body(context) {
-    return Expanded(
-          child: Container(
-            height: double.infinity,
+    return Container(
+      height: double.infinity,
         width: Get.width,
        
         color: CustomColors.borderLightGreyLineBg,
         child: SingleChildScrollView(
-                child: Container(
-                   padding: EdgeInsets.symmetric(
-          horizontal: 32,
-          vertical: 20,
+          child: Container(
+             padding: EdgeInsets.symmetric(
+    horizontal: 32,
+    vertical: 20,
         ),
-                  child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            
+            child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      
+      children: [
+        Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    SizedBox(),
-                    saveItemBtn(
-                      onPressed: () {
-                        print("Item Added");
-                        _quantityControllerState.onAddQuantityClick();
-                      },
-                    ),
-                  ],
+              SizedBox(),
+              saveItemBtn(
+                onPressed: () {
+                  print("Item Added");
+                  _quantityControllerState.onAddQuantityClick();
+                },
               ),
-              Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    backBtn(
-                      onPressed: () {
-                        _quantityControllerState.onAddQuantityClick();
-                      },
-                    ),
-                    SizedBox(),
-                  ],
-              ),
-              SizedBox(
-                  height: 20,
-              ),
-              _itemInfo(),
             ],
-          ),
-                ),
         ),
-      ),
-    );
+        Row(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              backBtn(
+                onPressed: () {
+                  _quantityControllerState.onAddQuantityClick();
+                },
+              ),
+              SizedBox(),
+            ],
+        ),
+        SizedBox(
+            height: 20,
+        ),
+        _itemInfo(),
+      ],
+    ),
+          ),
+        ),
+      );
   }
 
   Widget _itemInfo() {
