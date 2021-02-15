@@ -2,19 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:food/constants/customColors.dart';
 import 'package:food/constants/customFonts.dart';
+import 'package:food/responsive.dart';
 import 'package:food/util/customWidgets.dart';
 
 class SearchBarItems extends StatelessWidget {
   double _commonHeight;
   @override
   Widget build(BuildContext context) {
-    _commonHeight = 35;
+    _commonHeight = 35.0;
 
     return Row(
       children: [
-        customSizedBoxed(
-          width: 19,
-        ),
+       
         Expanded(
           flex: 27,
           child: SearchBar(),
@@ -23,14 +22,18 @@ class SearchBarItems extends StatelessWidget {
           width: 13,
         ),
         Expanded(
-          flex: 9,
+          flex: Responsive.isDesktop(context)
+              ? 5
+              : Responsive.isMobile(context)
+                  ? 11
+                  : 10,
           child: Card(
             elevation: 2,
             color: Colors.white,
             child: Container(
               height: _commonHeight,
               child: Padding(
-                padding: const EdgeInsets.only(left: 10, right: 4),
+                padding:  EdgeInsets.only(left: 10, right: 4),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -51,12 +54,14 @@ class SearchBarItems extends StatelessWidget {
           width: 13,
         ),
         Expanded(
-            flex: 7,
-            child: addnewBtn(onPress: (){}),),
-        customSizedBoxed(
-          width: 20,
-          height: 0,
+          flex: Responsive.isDesktop(context)
+              ? 4
+              : Responsive.isMobile(context)
+                  ? 9
+                  : 8,
+          child: addnewBtn(onPress: () {}),
         ),
+      
       ],
     );
   }
@@ -72,7 +77,7 @@ class SearchBar extends StatelessWidget {
             border: Border.all(
                 width: 0.25, color: CustomColors.borderMedGreyForChkBox),
             borderRadius: BorderRadius.circular(5)),
-        height: 35,
+        height: commonHeight,
         child: TextField(
           decoration: InputDecoration(
               contentPadding: EdgeInsets.only(left: 15),
