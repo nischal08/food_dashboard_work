@@ -1,14 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:food/Responsive.dart';
 import 'package:food/constants/constants.dart';
-
 import 'package:food/constants/customColors.dart';
+import 'package:food/constants/customFonts.dart';
 import 'package:food/controller/productScreenControllers/addonController.dart';
-
-import 'package:food/util/commonMethods.dart';
-
+import 'package:food/util/customWidgets.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
@@ -16,98 +12,63 @@ import 'package:provider/provider.dart';
 class AddAddonScreen extends StatelessWidget {
   AddonController _addOnScreenController;
 
-  OutlineInputBorder borderData;
 
   var commonHeight;
   @override
   Widget build(BuildContext context) {
-    commonHeight = 35;
+    commonHeight = 35.0;
 
     _addOnScreenController = Provider.of<AddonController>(context);
-    borderData = kBorderInputData;
+
     return _body(context);
   }
 
   Widget _body(context) {
     return Container(
       width: Get.width,
-      padding: EdgeInsets.symmetric(
-          horizontal: Responsive.isDesktop(context) ? 40 : 30, vertical: 20),
+      height: double.infinity,
       color: CustomColors.borderLightGreyLineBg,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              SizedBox(),
-              _saveItemBtn(context),
-            ],
+      child: SingleChildScrollView(
+        child: Container(
+          padding: EdgeInsets.symmetric(
+            horizontal: 32,
+            vertical: 20,
           ),
-          Row(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              _backBtn(context),
-              SizedBox(),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  SizedBox(),
+                  saveItemBtn(
+                    onPressed: () {
+                      print("Item Added");
+                      _addOnScreenController.onAddItemClick();
+                    },
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  backBtn(
+                    onPressed: () {
+                      _addOnScreenController.onAddItemClick();
+                    },
+                  ),
+                  SizedBox(),
+                ],
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              _itemInfo(),
             ],
           ),
-          SizedBox(
-            height: 20,
-          ),
-          _itemInfo(),
-        ],
-      ),
-    );
-  }
-
-  Widget _backBtn(context) {
-    return GestureDetector(
-      onTap: () {
-        _addOnScreenController.onAddItemClick();
-      },
-      child: Container(
-        child: Row(
-          children: [
-            Icon(
-              Icons.arrow_back_ios_rounded,
-              size: 18,
-              color: Colors.black87,
-            ),
-            SizedBox(
-              width: 4,
-            ),
-            Text(
-              "Back",
-              style: TextStyle(
-                color: Colors.black87,
-              ),
-            ),
-          ],
         ),
-      ),
-    );
-  }
-
-  Widget _saveItemBtn(context) {
-    return Container(
-      height: commonHeight,
-      child: RaisedButton(
-        onPressed: () {
-          print("Item Added");
-          _addOnScreenController.onAddItemClick();
-        },
-        elevation: 1,
-        child: Text(
-          "Save Item",
-          style: TextStyle(
-              color: Colors.white, fontSize: 15, fontFamily: "Roboto"),
-        ),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(5.0),
-        ),
-        color: CustomColors.green,
       ),
     );
   }
@@ -123,11 +84,20 @@ class AddAddonScreen extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 30),
-            child: Text(
-              "AddOn Item Information",
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0),
+          Container(
+            height: 40,
+            child: Padding(
+              padding: EdgeInsets.symmetric(
+                vertical: 10.0,
+                horizontal: 32,
+              ),
+              child: Text(
+                "Addon Item Information",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: xHeaderFont,
+                ),
+              ),
             ),
           ),
           _itemInfoBody(),
@@ -138,7 +108,7 @@ class AddAddonScreen extends StatelessWidget {
 
   Widget _itemInfoBody() {
     return Container(
-      height: Responsive.isMobile(Get.context) ? 320 : 350,
+      height: 360,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.only(
           bottomRight: Radius.circular(5),
@@ -148,99 +118,56 @@ class AddAddonScreen extends StatelessWidget {
       ),
       child: Padding(
         padding: EdgeInsets.symmetric(
-          vertical: 8.0,
-          horizontal: 30,
+          vertical: 10.0,
+          horizontal: 32,
         ),
         child: Column(
           children: [
-            SizedBox(height: 20),
-            _itemName1(),
+            SizedBox(height: 10),
+            _addonName(),
             SizedBox(
               height: 20,
             ),
-            _itemName2(),
+            _addonLimit(),
             SizedBox(
               height: 20,
             ),
-            _itemName3(),
+            _addonDesc(),
             SizedBox(
               height: 20,
             ),
-            _itemName4(),
+            _addonPrice(),
           ],
         ),
       ),
     );
   }
 
-  Widget _itemName1() {
-    return _eachItem(
+  Widget _addonName() {
+    return eachTextFieldItem(
         name: "Addon Item Name",
         hint: "Enter category name",
         onChange: (newVal) => _addOnScreenController.setItem(newVal));
   }
 
-  Widget _itemName2() {
-    return _eachItem(
+  Widget _addonLimit() {
+    return eachTextFieldItem(
         name: "Item Limit",
         hint: "Set Item Limit",
         onChange: (newVal) => _addOnScreenController.setItem(newVal));
   }
 
-  Widget _itemName3() {
-    return _eachItem(
+  Widget _addonDesc() {
+    return eachTextFieldItem(
         name: "Description",
         hint: "Enter Discription",
         onChange: (newVal) => _addOnScreenController.setItem(newVal));
   }
 
-  Widget _itemName4() {
-    return _eachItem(
+  Widget _addonPrice() {
+    return eachTextFieldItem(
         name: "Price",
         hint: "Enter Price",
         onChange: (newVal) => _addOnScreenController.setItem(newVal));
-  }
-
-  Widget _eachItem({String name, String hint, Function onChange(newVal)}) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          name,
-          style: TextStyle(
-            fontWeight: FontWeight.w600,
-            fontSize: 16,
-          ),
-        ),
-        SizedBox(
-          height: 5,
-        ),
-        Container(
-          height: getDeviceType()
-              ? 30
-              : Get.context.isPortrait
-                  ? (Get.height * .0345)
-                  : (Get.height * .05),
-          child: TextFormField(
-            onChanged: (String newVal) {
-              onChange(newVal);
-            },
-            keyboardType: TextInputType.name,
-            decoration: InputDecoration(
-                focusedBorder: borderData,
-                enabledBorder: borderData,
-                contentPadding: EdgeInsets.only(left: 10.0),
-                hintText: hint,
-                hintStyle: TextStyle(
-                  color: Colors.black54,
-                  fontSize: 14,
-                ),
-                filled: true,
-                fillColor: Colors.white),
-            enabled: true,
-          ),
-        )
-      ],
-    );
   }
 }

@@ -18,8 +18,6 @@ class AddProductPage extends StatelessWidget {
   AddProductController _addItemControllerState;
   ProductController _productControllerState;
 
- 
-
   var commonHeight;
   @override
   Widget build(BuildContext context) {
@@ -27,8 +25,6 @@ class AddProductPage extends StatelessWidget {
 
     _addItemControllerState = Provider.of<AddProductController>(context);
     _productControllerState = Provider.of<ProductController>(context);
-    
-    
 
     return _body(context);
   }
@@ -97,11 +93,15 @@ class AddProductPage extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Expanded(child: _itemInfo()),
+            Expanded(
+              child: _itemInfo(),
+            ),
             SizedBox(
               width: 28,
             ),
-            Expanded(child: _itemThumbnail()),
+            Expanded(
+              child: _itemThumbnail(),
+            ),
           ],
         ),
         SizedBox(height: 30),
@@ -649,7 +649,8 @@ class AddProductPage extends StatelessWidget {
         Container(
           width: double.infinity,
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(5), border: kBorderTextFieldAndAddCard),
+              borderRadius: BorderRadius.circular(5),
+              border: kBorderTextFieldAndAddCard),
           height: 35,
           child: DropdownButton(
             isExpanded: true,
@@ -697,8 +698,6 @@ class AddProductPage extends StatelessWidget {
       onChange: (newVal) => _addItemControllerState.setName(newVal),
     );
   }
-
-  
 
   Widget _itemDescription() {
     return Column(
