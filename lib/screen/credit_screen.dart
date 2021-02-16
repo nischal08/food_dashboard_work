@@ -87,13 +87,13 @@ class CreditDashboard extends StatelessWidget {
             Expanded(
               child: _recentsTransaction(text: "Recent Payments"),
             ),
-            customSizedBoxed(width: 20.0),
+            customSizedBoxed(width: 30.0),
             Expanded(
               child: _recentsPending(text: "Recent Pending"),
             ),
           ],
         ),
-        customSizedBoxed(height: 20.0),
+        customSizedBoxed(height: 30.0),
         _customerStat(customHeight: 350)
       ],
     );

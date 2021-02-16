@@ -13,13 +13,12 @@ class SearchBarItems extends StatelessWidget {
 
     return Row(
       children: [
-       
         Expanded(
-          flex: 27,
+          flex: Responsive.isDesktop(context) ? 27 : 26,
           child: SearchBar(),
         ),
         customSizedBoxed(
-          width: 30,
+          width: Responsive.isDesktop(context) ? 30 : 15,
         ),
         Expanded(
           flex: Responsive.isDesktop(context)
@@ -33,7 +32,7 @@ class SearchBarItems extends StatelessWidget {
             child: Container(
               height: _commonHeight,
               child: Padding(
-                padding:  EdgeInsets.only(left: 10, right: 4),
+                padding: EdgeInsets.only(left: 10, right: 4),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -51,7 +50,7 @@ class SearchBarItems extends StatelessWidget {
           ),
         ),
         customSizedBoxed(
-          width: 30,
+          width: Responsive.isDesktop(context) ? 30 : 15,
         ),
         Expanded(
           flex: Responsive.isDesktop(context)
@@ -61,7 +60,6 @@ class SearchBarItems extends StatelessWidget {
                   : 8,
           child: addnewBtn(onPress: () {}),
         ),
-      
       ],
     );
   }
