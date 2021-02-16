@@ -496,7 +496,7 @@ class AddProductPage extends StatelessWidget {
 
                     _productControllerState.onEachProductMenuClick(1);
                     _categoryControllerState.onAddCategoryClick();
-                    _homeControllerState.onProductToggle();
+                    
                   },
                   child: Padding(
                     padding: Responsive.isDesktop(Get.context)
@@ -592,11 +592,11 @@ class AddProductPage extends StatelessWidget {
           return key == "add"
               ? GestureDetector(
                   onTap: () {
-                    _homeControllerState.onSelect(2);
+                     _homeControllerState.onSelect(2);
                     _homeControllerState.onSelectProductMenu(1);
-                    _productControllerState.onEachProductMenuClick(2);
-                    _addonControllerState.onAddItemClick();
-                    _homeControllerState.onProductToggle();
+                    _productControllerState.onEachProductMenuClick(1);
+                    _categoryControllerState.onAddCategoryClick();
+                    
                   },
                   child: Padding(
                     padding: Responsive.isDesktop(Get.context)
