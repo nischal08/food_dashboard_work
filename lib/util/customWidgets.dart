@@ -48,102 +48,109 @@ class CustomCheckbox extends StatelessWidget {
 }
 
 Widget eachTextFieldItem(
-      {String name,
-      String hint,
-      bool isNum = false,
-      Function onChange(newVal)}) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          name,
-          style: TextStyle(fontSize: xBodyFont),
-        ),
-        SizedBox(
-          height: 10,
-        ),
-        Container(
-          height: 35,
-          child: TextFormField(
-            onChanged: (String newVal) {
-              onChange(newVal);
-            },
-            keyboardType: isNum ? TextInputType.number : TextInputType.name,
-            inputFormatters: isNum
-                ? <TextInputFormatter>[
-                    FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
-                  ]
-                : null,
-            decoration: InputDecoration(
-                focusedBorder: kBorderInputData,
-                enabledBorder: kBorderInputData,
-                contentPadding: EdgeInsets.only(left: 15.0),
-                hintText: hint,
-                hintStyle: TextStyle(
-                  color: CustomColors.textLightGrey,
-                  fontSize: xBodyFont,
-                ),
-                filled: true,
-                fillColor: Colors.white),
-            enabled: true,
-          ),
-        )
-      ],
-    );
-  }
-
-Widget backBtn({Function onPressed,String name}) {
-    return GestureDetector(
-      onTap:onPressed,
-      child: Container(
-        child: Row(
-          children: [
-            Icon(
-              Icons.arrow_back_ios_rounded,
-              size: 12,
-               color: CustomColors.textLightGrey,
-            ),
-            SizedBox(
-              width: 4,
-            ),
-            Text(
-             name?? "Back",
-              style: TextStyle(
+    {String name, String hint, bool isNum = false, Function onChange(newVal)}) {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Text(
+        name,
+        style: TextStyle(fontSize: xBodyFont),
+      ),
+      SizedBox(
+        height: 10,
+      ),
+      Container(
+        height: 35,
+        child: TextFormField(
+          onChanged: (String newVal) {
+            onChange(newVal);
+          },
+          keyboardType: isNum ? TextInputType.number : TextInputType.name,
+          inputFormatters: isNum
+              ? <TextInputFormatter>[
+                  FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+                ]
+              : null,
+          decoration: InputDecoration(
+              focusedBorder: kBorderOutlineTextField,
+              enabledBorder: kBorderOutlineTextField,
+              contentPadding: EdgeInsets.only(left: 15.0),
+              hintText: hint,
+              hintStyle: TextStyle(
                 color: CustomColors.textLightGrey,
                 fontSize: xBodyFont,
               ),
+              filled: true,
+              fillColor: Colors.white),
+          enabled: true,
+        ),
+      )
+    ],
+  );
+}
+
+Widget backBtn({Function onPressed, String name}) {
+  return GestureDetector(
+    onTap: onPressed,
+    child: Container(
+      child: Row(
+        children: [
+          Icon(
+            Icons.arrow_back_ios_rounded,
+            size: 12,
+            color: CustomColors.textLightGrey,
+          ),
+          SizedBox(
+            width: 4,
+          ),
+          Text(
+            name ?? "Back",
+            style: TextStyle(
+              color: CustomColors.textLightGrey,
+              fontSize: xBodyFont,
             ),
-          ],
-        ),
+          ),
+        ],
       ),
-    );
-  }
+    ),
+  );
+}
 
-
- 
- Widget saveItemBtn({Function onPressed,String name}) {
-    return Container(
-      width: 130,
-      height: commonHeight,
-      child: RaisedButton(
-        onPressed:onPressed,
-        elevation: 1,
-        child: Text(
-          name??"Save Item",
-          style: TextStyle(color: Colors.white, fontSize: xHeaderFont),
-        ),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(5.0),
-        ),
-        color: CustomColors.green,
+Widget customSaveBtn({
+  Function onPressed,
+  String name,
+  Color color,
+  Color textColor,
+  double fontSize,
+}) {
+  return Container(
+    width: 130,
+    height: commonHeight,
+    child: RaisedButton(
+      onPressed: onPressed,
+      elevation: 1,
+      child: Text(
+        name ?? "Save Item",
+        style: TextStyle(
+            color: textColor ?? Colors.white,
+            fontSize: fontSize ?? xHeaderFont),
       ),
-    );
-  }
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(5.0),
+      ),
+      color: color ?? CustomColors.green,
+    ),
+  );
+}
 
-Widget uploadImgBtn({Function onPressed}) {
+Widget uploadImgBtn({
+  Function onPressed,
+  double fontSize,
+}) {
   return Container(
     height: commonHeight,
     child: RaisedButton.icon(
+      color: CustomColors.colorInfoThumbnailHeader,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
       elevation: 0,
       onPressed: onPressed,
@@ -158,7 +165,7 @@ Widget uploadImgBtn({Function onPressed}) {
         padding: const EdgeInsets.only(top: 8.0, bottom: 8.0, right: 5),
         child: Text(
           "Upload Image",
-          style: TextStyle(fontSize: xHeaderFont),
+          style: TextStyle(fontSize: fontSize ?? xHeaderFont),
         ),
       ),
     ),
@@ -248,7 +255,8 @@ Widget addnewBtn({Function onPress}) {
 }
 
 Widget customFixedDivider() {
-  return Divider(thickness: 1,
+  return Divider(
+    thickness: 1,
     height: 15,
     color: CustomColors.borderLightGreyLineBg,
   );

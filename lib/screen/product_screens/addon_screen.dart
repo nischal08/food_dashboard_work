@@ -4,8 +4,10 @@ import 'package:food/constants/constants.dart';
 import 'package:food/constants/customColors.dart';
 import 'package:food/constants/customFonts.dart';
 import 'package:food/controller/productScreenControllers/addonController.dart';
+import 'package:food/responsive.dart';
 import 'package:food/util/customWidgets.dart';
 import 'package:food/util/searchBarItems.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
 import 'add_addon_screen.dart';
@@ -33,14 +35,13 @@ class AddonScreen extends StatelessWidget {
         child: _addOnScreenController.addOnScreenFlag
             ? AddAddonScreen()
             : Container(
-              height: double.infinity,
-              child: SingleChildScrollView(
-                            child: Container(
+                height: double.infinity,
+                child: SingleChildScrollView(
+                  child: Container(
                     padding: EdgeInsets.symmetric(
                       horizontal: 32,
                       vertical: 25,
                     ),
-                   
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -52,8 +53,8 @@ class AddonScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-              ),
-            ));
+                ),
+              ));
   }
 
   Widget _itemDatatable() {
@@ -66,121 +67,136 @@ class AddonScreen extends StatelessWidget {
           kGeneralBoxShadow,
         ],
       ),
-      child: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 13.0, horizontal: 19),
-          child: Table(
-            columnWidths: {
-              0: FlexColumnWidth(122),
-              1: FlexColumnWidth(106),
-              2: FlexColumnWidth(162),
-              3: FlexColumnWidth(137),
-              4: FlexColumnWidth(154),
-              5: FlexColumnWidth(65),
-            },
-            border: TableBorder(
-              horizontalInside: BorderSide(
-                width: 1,
-                color: CustomColors.borderLightGreyLineBg,
-              ),
+      child: Padding(
+        padding: EdgeInsets.symmetric(vertical: 13.0, horizontal: 19),
+        child: Table(
+          columnWidths: {
+            0: FlexColumnWidth(122),
+            1: FlexColumnWidth(106),
+            2: FlexColumnWidth(162),
+            3: FlexColumnWidth(137),
+            4: FlexColumnWidth(154),
+            5: FlexColumnWidth(65),
+          },
+          border: TableBorder(
+            horizontalInside: BorderSide(
+              width: 1,
+              color: CustomColors.borderLightGreyLineBg,
             ),
-            children: [
+          ),
+          children: [
+            TableRow(
+              children: [
+                for (var head in _addOnScreenController.itemHeadList)
+                  TableCell(
+                      child: Padding(
+                    padding: EdgeInsets.only(
+                      left: head == "Name" ? 10 : 0,
+                      top: 7.0,
+                      bottom: 13.0,
+                    ),
+                    child: Text(
+                      head.toString(),
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: xHeaderFont),
+                    ),
+                  ))
+              ],
+            ),
+            for (var item in _addOnScreenController.itemInfoList)
               TableRow(
                 children: [
-                  for (var head in _addOnScreenController.itemHeadList)
-                    TableCell(
-                        child: Padding(
-                      padding: EdgeInsets.only(
-                        left: head == "Name" ? 10 : 0,
-                        top: 7.0,
-                        bottom: 13.0,
-                      ),
-                      child: Text(
-                        head.toString(),
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: xHeaderFont),
-                      ),
-                    ))
+                  TableCell(
+                      verticalAlignment: TableCellVerticalAlignment.middle,
+                      child: Padding(
+                        padding: EdgeInsets.only(
+                          left: 10,
+                        ),
+                        child: _infoName(
+                          text: item[0],
+                        ),
+                      )),
+                  TableCell(
+                      verticalAlignment: TableCellVerticalAlignment.middle,
+                      child: _infoName(text: item[1])),
+                  TableCell(
+                      verticalAlignment: TableCellVerticalAlignment.middle,
+                      child: _infoName(text: item[2])),
+                  TableCell(
+                      verticalAlignment: TableCellVerticalAlignment.middle,
+                      child: _infoName(text: item[3])),
+                  TableCell(
+                    verticalAlignment: TableCellVerticalAlignment.middle,
+                    child: Row(
+                      children: [
+                        SizedBox(
+                          width: 35,
+                        ),
+                        _productNotAvail()
+                      ],
+                    ),
+                  ),
+                  TableCell(
+                    verticalAlignment: TableCellVerticalAlignment.middle,
+                    child: actionButtons(onPressDelete: () {
+                      _addOnScreenController.deleteItem(
+                          _addOnScreenController.itemInfoList.indexOf(item));
+                    }),
+                  )
                 ],
               ),
-              for (var item in _addOnScreenController.itemInfoList)
-                TableRow(
-                  children: [
-                    TableCell(
-                        verticalAlignment: TableCellVerticalAlignment.middle,
-                        child: Padding(
-                          padding: EdgeInsets.only(
-                            left: 10,
-                          ),
-                          child: _infoName(
-                            text: item[0],
-                          ),
-                        )),
-                    TableCell(
-                        verticalAlignment: TableCellVerticalAlignment.middle,
-                        child: _infoName(text: item[1])),
-                    TableCell(
-                        verticalAlignment: TableCellVerticalAlignment.middle,
-                        child: _infoName(text: item[2])),
-                    TableCell(
-                        verticalAlignment: TableCellVerticalAlignment.middle,
-                        child: _infoName(text: item[3])),
-                    TableCell(
-                      verticalAlignment: TableCellVerticalAlignment.middle,
-                      child: Row(
-                        children: [
-                          SizedBox(
-                            width: 35,
-                          ),
-                          _productNotAvail()
-                        ],
-                      ),
-                    ),
-                    TableCell(
-                      verticalAlignment: TableCellVerticalAlignment.middle,
-                      child: actionButtons(onPressDelete: () {
-                        _addOnScreenController.deleteItem(
-                            _addOnScreenController.itemInfoList.indexOf(item));
-                      }),
-                    )
-                  ],
-                ),
-            ],
-          ),
+          ],
         ),
       ),
     );
   }
 
-  Widget _searchBarItems() {
+Widget _searchBarItems() {
     return Container(
       child: Row(
         children: [
-          Expanded(flex: 4, child: SearchBar()),
-          SizedBox(
-            width: 15,
-          ),
           Expanded(
-            flex: 4,
-            child: Row(
-              children: [
-                EntriesShowBtn(),
-                SizedBox(
-                  width: 5,
-                ),
-                AddEntriesBtn(),
-              ],
+            flex: 3,
+            child: Container(
+              width: 400.0,
+              child: SearchBar(),
             ),
           ),
-          addnewBtn(
-            onPress: () {
-              _addOnScreenController.onAddItemClick();
-            },
+          SizedBox(
+            width: Responsive.isMobile(Get.context) ||
+                    Responsive.isTablet(Get.context)
+                ? 15
+                : 30,
+          ),
+          Expanded(
+            flex: 2,
+            child: Container(
+              child: Row(
+                children: [
+                  EntriesShowBtn(
+                    entries: _addOnScreenController.itemInfoList.length,
+                  ),
+                  SizedBox(
+                    width: 5,
+                  ),
+                  AddEntriesBtn(),
+                ],
+              ),
+            ),
+          ),
+          Container(
+            child: addnewBtn(
+              onPress: () {
+               _addOnScreenController.onAddItemClick();
+              },
+            ),
           ),
         ],
       ),
     );
   }
+
+  
 
   Widget _infoName({String text}) {
     return Padding(

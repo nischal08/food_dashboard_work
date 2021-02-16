@@ -41,7 +41,7 @@ class AddProductPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 SizedBox(),
-                saveItemBtn(
+                customSaveBtn(
                   onPressed: () {
                     print("Item Added");
                     _productControllerState.onAddProductClick();
@@ -140,7 +140,7 @@ class AddProductPage extends StatelessWidget {
   Widget _itemInfo() {
     return Container(
       decoration: BoxDecoration(
-        border: kBorderTextFieldAndAddCard,
+        border: kBorderTextFieldkCardkSearchbar,
         borderRadius: BorderRadius.circular(
           5,
         ),
@@ -170,7 +170,7 @@ class AddProductPage extends StatelessWidget {
   Widget _itemThumbnail() {
     return Container(
       decoration: BoxDecoration(
-        border: kBorderTextFieldAndAddCard,
+        border: kBorderTextFieldkCardkSearchbar,
         borderRadius: BorderRadius.circular(5),
         color: CustomColors.colorInfoThumbnailHeader,
       ),
@@ -386,7 +386,7 @@ class AddProductPage extends StatelessWidget {
   Widget _category() {
     return Container(
       decoration: BoxDecoration(
-        border: kBorderTextFieldAndAddCard,
+        border: kBorderTextFieldkCardkSearchbar,
         borderRadius: BorderRadius.circular(5),
         color: CustomColors.colorInfoThumbnailHeader,
       ),
@@ -413,7 +413,7 @@ class AddProductPage extends StatelessWidget {
   Widget _extra() {
     return Container(
       decoration: BoxDecoration(
-        border: kBorderTextFieldAndAddCard,
+        border: kBorderTextFieldkCardkSearchbar,
         borderRadius: BorderRadius.circular(5),
         color: CustomColors.colorInfoThumbnailHeader,
       ),
@@ -650,7 +650,7 @@ class AddProductPage extends StatelessWidget {
           width: double.infinity,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(5),
-              border: kBorderTextFieldAndAddCard),
+              border: kBorderTextFieldkCardkSearchbar),
           height: 35,
           child: DropdownButton(
             isExpanded: true,
@@ -718,8 +718,8 @@ class AddProductPage extends StatelessWidget {
             maxLines: 6,
             keyboardType: TextInputType.multiline,
             decoration: InputDecoration(
-                focusedBorder: kBorderInputData,
-                enabledBorder: kBorderInputData,
+                focusedBorder: kBorderOutlineTextField,
+                enabledBorder: kBorderOutlineTextField,
                 contentPadding: EdgeInsets.only(
                   left: 15.0,
                   top: 25.0,
@@ -752,7 +752,7 @@ class AddProductPage extends StatelessWidget {
         Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(5),
-            border: kBorderTextFieldAndAddCard,
+            border: kBorderTextFieldkCardkSearchbar,
           ),
           height: commonHeight,
           child: DropdownButton(

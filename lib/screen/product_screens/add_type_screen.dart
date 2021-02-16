@@ -44,7 +44,7 @@ class AddTypeScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   SizedBox(),
-                  saveItemBtn(onPressed: () {
+                  customSaveBtn(onPressed: () {
                     print("Item Added");
                     _typeControllerState.onAddTypeClick();
                   }),
@@ -101,7 +101,7 @@ class AddTypeScreen extends StatelessWidget {
     return Container(
       width: 370,
       decoration: BoxDecoration(
-        border: kBorderTextFieldAndAddCard,
+        border: Border.all(color: Colors.grey.shade300),
         borderRadius: BorderRadius.circular(5),
         color: CustomColors.colorInfoThumbnailHeader,
       ),
@@ -110,13 +110,11 @@ class AddTypeScreen extends StatelessWidget {
         children: [
           Container(
             height: 40,
-            child: Padding(
-              padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 30),
-              child: Text(
-                "Item Type Information",
-                style: TextStyle(
-                    fontWeight: FontWeight.bold, fontSize: xHeaderFont),
-              ),
+            padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 30),
+            child: Text(
+              "Item Type Information",
+              style: TextStyle(
+                  fontWeight: FontWeight.bold, fontSize: xHeaderFont),
             ),
           ),
           _itemInfoBody()
@@ -127,7 +125,7 @@ class AddTypeScreen extends StatelessWidget {
 
   Widget _itemInfoBody() {
     return Container(
-      height: 196,
+     
       decoration: BoxDecoration(
         borderRadius: BorderRadius.only(
           bottomRight: Radius.circular(5),

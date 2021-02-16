@@ -13,14 +13,14 @@ BoxShadow kGeneralBoxShadow = BoxShadow(
 );
 
 
-OutlineInputBorder  kBorderInputData = OutlineInputBorder(
+OutlineInputBorder  kBorderOutlineTextField = OutlineInputBorder(
       borderRadius: BorderRadius.circular(5),
       borderSide: BorderSide(
         width: 0.25,
         color: CustomColors.borderMedGreyForChkBox,
       ),
     );
- Border kBorderTextFieldAndAddCard = Border.all(
+ Border kBorderTextFieldkCardkSearchbar = Border.all(
       width: 0.25,
       color: CustomColors.borderMedGreyForChkBox,
     );

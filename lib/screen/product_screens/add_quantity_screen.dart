@@ -42,7 +42,7 @@ class AddQuantityScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               SizedBox(),
-              saveItemBtn(
+              customSaveBtn(
                 onPressed: () {
                   print("Item Added");
                   _quantityControllerState.onAddQuantityClick();
@@ -77,7 +77,7 @@ class AddQuantityScreen extends StatelessWidget {
     return Container(
       width: 370,
       decoration: BoxDecoration(
-        border: kBorderTextFieldAndAddCard,
+        border: kBorderTextFieldkCardkSearchbar,
         borderRadius: BorderRadius.circular(5),
         color: CustomColors.colorInfoThumbnailHeader,
       ),

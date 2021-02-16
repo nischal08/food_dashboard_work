@@ -103,7 +103,7 @@ class CreditDashboard extends StatelessWidget {
       height: 260,
       decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(13.0),
+          borderRadius: BorderRadius.circular(10.0),
           boxShadow: [
             kGeneralBoxShadow,
           ]),
@@ -177,7 +177,7 @@ class CreditDashboard extends StatelessWidget {
       height: 260,
       decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(13),
+          borderRadius: BorderRadius.circular(10),
           boxShadow: [
             kGeneralBoxShadow,
           ]),

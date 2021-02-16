@@ -42,7 +42,7 @@ class AddAddonScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   SizedBox(),
-                  saveItemBtn(
+                  customSaveBtn(
                     onPressed: () {
                       print("Item Added");
                       _addOnScreenController.onAddItemClick();

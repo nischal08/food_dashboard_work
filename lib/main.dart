@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:food/controller/addProductController.dart';
 import 'package:food/controller/creditController.dart';
 import 'package:food/controller/productScreenControllers/addonController.dart';
+import 'package:food/controller/productScreenControllers/categoryScreenController.dart';
 
 import 'package:food/controller/productScreenControllers/quantityScreenController.dart';
 import 'package:food/controller/productScreenControllers/typeController.dart';
@@ -38,7 +39,9 @@ void main() {
         ChangeNotifierProvider(
           create: (_) => AddonController(),
         ),
-        
+        ChangeNotifierProvider(
+          create: (_) => CategoryController(),
+        ),
       ],
       child: MyApp(),
     ),
@@ -51,8 +54,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      theme: ThemeData( 
-        
+      theme: ThemeData(
         scaffoldBackgroundColor: Color(0xffF4F4F4),
         textTheme: GoogleFonts.robotoTextTheme(
           Theme.of(context).textTheme,
