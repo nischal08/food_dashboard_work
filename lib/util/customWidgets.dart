@@ -248,16 +248,16 @@ Widget addnewBtn({Function onPress}) {
 }
 
 Widget customFixedDivider() {
-  return Divider(
+  return Divider(thickness: 1,
     height: 15,
-    color: Colors.grey.shade300,
+    color: CustomColors.borderLightGreyLineBg,
   );
 }
 
 Text customBoldText({String text}) {
   return Text(
     text,
-    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+    style: TextStyle(fontWeight: FontWeight.bold, fontSize: xHeaderFont),
   );
 }
 

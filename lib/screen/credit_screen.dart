@@ -6,7 +6,6 @@ import 'package:food/constants/customFonts.dart';
 import 'package:food/controller/creditController.dart';
 import 'package:food/responsive.dart';
 
-import 'package:food/util/commonMethods.dart';
 import 'package:food/util/customWidgets.dart';
 import 'package:food/util/searchBarItems.dart';
 import 'package:get/get.dart';
@@ -14,8 +13,6 @@ import 'package:provider/provider.dart';
 
 // ignore: must_be_immutable
 class CreditDashboard extends StatelessWidget {
-
-
   CreditController _adminControllerState;
 
   CreditController adminController;
@@ -37,7 +34,6 @@ class CreditDashboard extends StatelessWidget {
   Widget _contentBody() {
     return Expanded(
       child: Container(
-
         height: double.infinity,
         child: SingleChildScrollView(
           child: Padding(
@@ -48,9 +44,9 @@ class CreditDashboard extends StatelessWidget {
             child: Column(
               children: [
                 SearchBarItems(),
-                customSizedBoxed(height: 20.0),
+                customSizedBoxed(height: 25.0),
                 _financeDataCard(),
-                customSizedBoxed(height: 20.0),
+                customSizedBoxed(height: 30.0),
                 _paymentData(),
               ],
             ),
@@ -61,20 +57,22 @@ class CreditDashboard extends StatelessWidget {
   }
 
   Widget _paymentData() {
-    return getDeviceType()
-        ? _mobileViewPaymentData()
-        : _tabletViewPaymentData();
+    return Responsive(
+      mobile: _mobileViewPaymentData(),
+      desktop: _tabletViewPaymentData(),
+      tablet: _mobileViewPaymentData(),
+    );
   }
 
   Widget _tabletViewPaymentData() {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
-        Expanded(flex: 3, child: _recentsTransaction(text: "Recent Payments")),
-        customSizedBoxed(width: 20.0),
-        Expanded(flex: 3, child: _recentsPending(text: "Recent Pending")),
-        customSizedBoxed(width: 20.0),
-        Expanded(flex: 4, child: _customerStat())
+        Expanded(flex: 2, child: _recentsTransaction(text: "Recent Payments")),
+        customSizedBoxed(width: 25.0),
+        Expanded(flex: 2, child: _recentsPending(text: "Recent Pending")),
+        customSizedBoxed(width: 25.0),
+        Expanded(flex: 3, child: _customerStat())
       ],
     );
   }
@@ -87,20 +85,24 @@ class CreditDashboard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             Expanded(
-                flex: 1, child: _recentsTransaction(text: "Recent Payments")),
+              child: _recentsTransaction(text: "Recent Payments"),
+            ),
             customSizedBoxed(width: 20.0),
-            Expanded(flex: 1, child: _recentsPending(text: "Recent Pending")),
+            Expanded(
+              child: _recentsPending(text: "Recent Pending"),
+            ),
           ],
         ),
         customSizedBoxed(height: 20.0),
-        _customerStat()
+        _customerStat(customHeight: 350)
       ],
     );
   }
 
   Widget _recentsTransaction({String text}) {
     return Container(
-       height: 260,
+      width: 270,
+      height: 260,
       decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(13.0),
@@ -110,12 +112,18 @@ class CreditDashboard extends StatelessWidget {
       child: Column(
         children: [
           Padding(
-            padding: EdgeInsets.all(15.0),
+            padding: EdgeInsets.symmetric(
+              vertical: 20.0,
+              horizontal: 25,
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 customBoldText(text: text),
                 customFixedDivider(),
+                SizedBox(
+                  height: 12,
+                ),
                 _eachUserPayDetail(
                     name: "Niraj Karanjeet",
                     amount: "1000",
@@ -145,20 +153,20 @@ class CreditDashboard extends StatelessWidget {
       padding: EdgeInsets.only(
         bottom: 8.0,
         left: 8.0,
-        right: 8.0,
-        top: getDeviceType() ? 0 : 8.0,
+        right: 14.0,
+       top: 4.0,
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           Text(
             "View All",
-            style: TextStyle(fontSize: 10.0, color: Colors.green),
+            style: TextStyle(fontSize: xSmall, color: CustomColors.green),
           ),
           Icon(
             Icons.arrow_forward_ios,
             size: 10,
-            color: Colors.green,
+            color: CustomColors.green,
           )
         ],
       ),
@@ -167,23 +175,29 @@ class CreditDashboard extends StatelessWidget {
 
   Widget _recentsPending({String text}) {
     return Container(
-       height: 260,
+      width: 270,
+      height: 260,
       decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(13),
           boxShadow: [
             kGeneralBoxShadow,
           ]),
-     
       child: Column(
         children: [
           Padding(
-            padding: EdgeInsets.all(15.0),
+            padding: EdgeInsets.symmetric(
+              vertical: 20.0,
+              horizontal: 25,
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 customBoldText(text: text),
                 customFixedDivider(),
+                SizedBox(
+                  height: 12,
+                ),
                 _eachUserPayDetail(
                   name: "Niraj Karanjeet",
                   amount: "1110",
@@ -207,22 +221,21 @@ class CreditDashboard extends StatelessWidget {
     );
   }
 
-  Widget _customerStat() {
+  Widget _customerStat({double customHeight}) {
     return Container(
-      padding: EdgeInsets.all(15.0),
-      height: 260,
+      padding: EdgeInsets.all(10.0),
+      height: customHeight ?? 260,
+      width: 416,
       decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(13),
           boxShadow: [
             kGeneralBoxShadow,
           ]),
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 19.0),
-        child: Image.asset(
-          "assets/customer stat.jpg",fit:getDeviceType()?BoxFit.fitWidth: BoxFit.fill,
-          scale:1,
-        ),
+      child: Image.asset(
+        "assets/customer stat.jpg",
+        fit: BoxFit.fill,
+        scale: 1,
       ),
     );
   }
@@ -233,6 +246,7 @@ class CreditDashboard extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             CircleAvatar(
               radius: 12,
@@ -248,14 +262,17 @@ class CreditDashboard extends StatelessWidget {
                   name,
                   style: TextStyle(
                     color: Colors.black,
-                    fontSize: 13,
+                    fontSize: xBodyFont,
                   ),
+                ),
+                SizedBox(
+                  height: 3,
                 ),
                 Text(
                   "12/15/2020",
                   style: TextStyle(
                     color: Colors.grey,
-                    fontSize: 10,
+                    fontSize: xSmall,
                   ),
                 )
               ],
@@ -269,14 +286,17 @@ class CreditDashboard extends StatelessWidget {
               "Rs. $amount",
               style: TextStyle(
                   color: Colors.black,
-                  fontSize: 12,
+                  fontSize: xBodyFont,
                   fontWeight: FontWeight.bold),
+            ),
+            SizedBox(
+              height: 3,
             ),
             Text(
               "${paymentGetway == null ? " " : paymentGetway}",
               style: TextStyle(
                 color: Colors.grey,
-                fontSize: 9,
+                fontSize: xSmall,
               ),
             )
           ],
@@ -297,12 +317,12 @@ class CreditDashboard extends StatelessWidget {
           columnWidths: {
             0: FlexColumnWidth(1.4),
             1: FlexColumnWidth(1.8),
-            2: FlexColumnWidth(2.6),
+            2: FlexColumnWidth(2.4),
             3: FlexColumnWidth(1.9),
             4: FlexColumnWidth(1.3),
             5: FlexColumnWidth(1.5),
-            6: FlexColumnWidth(1.4),
-            7: FlexColumnWidth(Responsive.isDesktop(Get.context) ? 0.8 : 1.2),
+            6: FlexColumnWidth(1.5),
+            7: FlexColumnWidth(Responsive.isDesktop(Get.context) ? 0.8 : 1.3),
           },
           border: TableBorder(
             horizontalInside:
@@ -337,7 +357,7 @@ class CreditDashboard extends StatelessWidget {
                               ),
                               child: actionButtons(),
                             )
-                          : _productName(
+                          : _clientInfoName(
                               text: each.toString(),
                             ),
                     ),
@@ -349,11 +369,11 @@ class CreditDashboard extends StatelessWidget {
     );
   }
 
-  Widget _productName({String text}) {
+  Widget _clientInfoName({String text}) {
     return Padding(
       padding: EdgeInsets.only(
-        top: 15.0,
-        bottom: 15.0,
+        top: 23.0,
+        bottom: 23.0,
         left: 7.0,
       ),
       child: Align(
