@@ -7,7 +7,10 @@ import 'package:food/constants/constants.dart';
 import 'package:food/constants/customColors.dart';
 import 'package:food/constants/customFonts.dart';
 import 'package:food/controller/addProductController.dart';
+import 'package:food/controller/homeController.dart';
 import 'package:food/controller/productController.dart';
+import 'package:food/controller/productScreenControllers/addonController.dart';
+import 'package:food/controller/productScreenControllers/categoryScreenController.dart';
 import 'package:food/responsive.dart';
 import 'package:food/util/customWidgets.dart';
 import 'package:get/get.dart';
@@ -17,6 +20,9 @@ import 'package:provider/provider.dart';
 class AddProductPage extends StatelessWidget {
   AddProductController _addItemControllerState;
   ProductController _productControllerState;
+  AddonController _addonControllerState;
+  CategoryController _categoryControllerState;
+  HomeController _homeControllerState;
 
   var commonHeight;
   @override
@@ -25,6 +31,9 @@ class AddProductPage extends StatelessWidget {
 
     _addItemControllerState = Provider.of<AddProductController>(context);
     _productControllerState = Provider.of<ProductController>(context);
+    _addonControllerState = Provider.of<AddonController>(context);
+    _categoryControllerState = Provider.of<CategoryController>(context);
+    _homeControllerState = Provider.of<HomeController>(context);
 
     return _body(context);
   }
@@ -480,14 +489,24 @@ class AddProductPage extends StatelessWidget {
       child: Wrap(direction: Axis.horizontal, children: [
         ..._addItemControllerState.categoryList.keys.map((String key) {
           return key == "add"
-              ? Padding(
-                  padding: Responsive.isDesktop(Get.context)
-                      ? EdgeInsets.only(top: 8.0, left: 8.0)
-                      : EdgeInsets.only(top: 15.0, left: 16.0),
-                  child: Icon(
-                    Icons.add_circle,
-                    size: 16,
-                    color: CustomColors.green,
+              ? GestureDetector(
+                  onTap: () {
+                    _homeControllerState.onSelect(2);
+                    _homeControllerState.onSelectProductMenu(0);
+
+                    _productControllerState.onEachProductMenuClick(1);
+                    _categoryControllerState.onAddCategoryClick();
+                    _homeControllerState.onProductToggle();
+                  },
+                  child: Padding(
+                    padding: Responsive.isDesktop(Get.context)
+                        ? EdgeInsets.only(top: 8.0, left: 8.0)
+                        : EdgeInsets.only(top: 15.0, left: 16.0),
+                    child: Icon(
+                      Icons.add_circle,
+                      size: 16,
+                      color: CustomColors.green,
+                    ),
                   ),
                 )
               : Container(
@@ -571,14 +590,23 @@ class AddProductPage extends StatelessWidget {
       child: Wrap(direction: Axis.horizontal, children: [
         ..._addItemControllerState.addonsList.keys.map((String key) {
           return key == "add"
-              ? Padding(
-                  padding: Responsive.isDesktop(Get.context)
-                      ? EdgeInsets.only(top: 8.0, left: 8.0)
-                      : EdgeInsets.only(top: 15.0, left: 16.0),
-                  child: Icon(
-                    Icons.add_circle,
-                    size: 16,
-                    color: CustomColors.green,
+              ? GestureDetector(
+                  onTap: () {
+                    _homeControllerState.onSelect(2);
+                    _homeControllerState.onSelectProductMenu(1);
+                    _productControllerState.onEachProductMenuClick(2);
+                    _addonControllerState.onAddItemClick();
+                    _homeControllerState.onProductToggle();
+                  },
+                  child: Padding(
+                    padding: Responsive.isDesktop(Get.context)
+                        ? EdgeInsets.only(top: 8.0, left: 8.0)
+                        : EdgeInsets.only(top: 15.0, left: 16.0),
+                    child: Icon(
+                      Icons.add_circle,
+                      size: 16,
+                      color: CustomColors.green,
+                    ),
                   ),
                 )
               : Container(

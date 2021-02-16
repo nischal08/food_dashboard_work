@@ -63,8 +63,8 @@ class CategoryController extends ChangeNotifier {
     notifyListeners();
   }
 
-  onAddCategoryClick() {
-    addCategoryFlag = !addCategoryFlag;
+  onAddCategoryClick({bool flag}) {
+    addCategoryFlag =flag??( !addCategoryFlag);
     notifyListeners();
   }
 
