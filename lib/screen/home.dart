@@ -16,8 +16,6 @@ class HomePage extends StatelessWidget {
   HomeController _homeControllerState;
   ProductController _productControllerState;
 
- 
-
   var realOrientation;
   double height;
   double width;
@@ -91,67 +89,71 @@ class HomePage extends StatelessWidget {
   // }
 
   Widget _menuSideBar(context) {
-    return Container(
+    return SizedBox(
       width: 207.0,
       child: Drawer(
         elevation: 0,
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              (getDeviceType() ||
-                      _homeControllerState.getOpacityForOrientation(context) ==
-                          1)
-                  ? SizedBox(
-                      height: 75,
-                      child: DrawerHeader(
-                        child: Text(
-                          "Menu",
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: xHeaderFont),
+        child: Container(
+          color: CustomColors.sideMenuColor,
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                (getDeviceType() ||
+                        _homeControllerState
+                                .getOpacityForOrientation(context) ==
+                            1)
+                    ? SizedBox(
+                        height: 75,
+                        child: DrawerHeader(
+                          child: Text(
+                            "Menu",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: xHeaderFont),
+                          ),
+                          margin: EdgeInsets.zero,
                         ),
-                        margin: EdgeInsets.zero,
+                      )
+                    : SizedBox(height: 5),
+                SizedBox(
+                  height: 10,
+                ),
+                EachDashboardMenuItem(
+                  icons: "assets/icons/dashboard.png",
+                  text: "Dashboard",
+                  index: 0,
+                ),
+                EachDashboardMenuItem(
+                  icons: "assets/icons/orders.png",
+                  text: "Orders",
+                  index: 1,
+                ),
+                (_homeControllerState.productToggleFlag &&
+                        _homeControllerState.currentMenuItemIndex == 2)
+                    ? _allProductMenuItem()
+                    : EachDashboardMenuItem(
+                        icons: "assets/icons/menu.png",
+                        text: "Product",
+                        index: 2,
+                        trailling: Icons.keyboard_arrow_down,
                       ),
-                    )
-                  : SizedBox(height: 5),
-              SizedBox(
-                height: 10,
-              ),
-              EachDashboardMenuItem(
-                icons: "assets/icons/dashboard.png",
-                text: "Dashboard",
-                index: 0,
-              ),
-              EachDashboardMenuItem(
-                icons: "assets/icons/orders.png",
-                text: "Orders",
-                index: 1,
-              ),
-              (_homeControllerState.productToggleFlag &&
-                      _homeControllerState.currentMenuItemIndex == 2)
-                  ? _allProductMenuItem()
-                  : EachDashboardMenuItem(
-                      icons: "assets/icons/menu.png",
-                      text: "Product",
-                      index: 2,
-                      trailling: Icons.keyboard_arrow_down,
-                    ),
-              EachDashboardMenuItem(
-                icons: "assets/icons/customer.png",
-                text: "Customers",
-                index: 3,
-              ),
-              EachDashboardMenuItem(
-                icons: "assets/icons/star.png",
-                text: "Credit",
-                index: 4,
-              ),
-              EachDashboardMenuItem(
-                icons: "assets/icons/settings.png",
-                text: "Settings",
-                index: 5,
-              ),
-            ],
+                EachDashboardMenuItem(
+                  icons: "assets/icons/customer.png",
+                  text: "Customers",
+                  index: 3,
+                ),
+                EachDashboardMenuItem(
+                  icons: "assets/icons/star.png",
+                  text: "Credit",
+                  index: 4,
+                ),
+                EachDashboardMenuItem(
+                  icons: "assets/icons/settings.png",
+                  text: "Settings",
+                  index: 5,
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -254,13 +256,12 @@ class HomePage extends StatelessWidget {
                 fontSize: xHeaderFont,
               ),
             ),
-             SizedBox(
+            SizedBox(
               width: 5,
             ),
             Icon(
               Icons.keyboard_arrow_down,
               color: Colors.grey.shade600,
-             
             ),
             SizedBox(
               width: 45,
