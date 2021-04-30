@@ -8,9 +8,9 @@ import 'package:image_picker/image_picker.dart';
 
 class AddProductController extends ChangeNotifier {
   var image;
-  String name;
-  String actualPrice;
-  String offeredPrice;
+  String name ='';
+  String actualPrice = '';
+  String? offeredPrice;
 
   final picker = ImagePicker();
   setName(String val) {
@@ -47,7 +47,7 @@ class AddProductController extends ChangeNotifier {
     }
   }
 
-  Map<String, bool> categoryList = {
+  Map<String?, bool?> categoryList = {
     'Snack': false,
     'Dessert': false,
     'Mo:Mo': false,
@@ -61,7 +61,7 @@ class AddProductController extends ChangeNotifier {
     'Salty': false,
     'add': false,
   };
-  Map<String, bool> addonsList = {
+  Map<String?, bool?> addonsList = {
     'Bread': false,
     'Mo:Mo': false,
     'Sauce': false,
@@ -108,25 +108,25 @@ class AddProductController extends ChangeNotifier {
     notifyListeners();
   }
 
-  onChangeCategoryState({bool newVal, String currentKey}) {
+  onChangeCategoryState({bool? newVal, String? currentKey}) {
     categoryList[currentKey] = newVal;
     notifyListeners();
   }
 
-  onChangeAddOnsState({bool newVal, String currentKey}) {
+  onChangeAddOnsState({bool? newVal, String? currentKey}) {
     addonsList[currentKey] = newVal;
     notifyListeners();
   }
 
-  String _dropdownQualityValue = "---select---";
-  String get dropdownQualityValue => _dropdownQualityValue;
+  String dropdownQualityValue = "---select---";
+  // String get  => _dropdownQualityValue;
 
-  set dropdownQualityValue(String value) => _dropdownQualityValue = value;
+  // set dropdownQualityValue(String value) => _dropdownQualityValue = value;
 
-  String _dropdownTypeValue = "---select---";
-  String get dropdownTypeValue => _dropdownTypeValue;
+  String dropdownTypeValue = "---select---";
+  // String get dropdownTypeValue => _dropdownTypeValue;
 
-  set dropdownTypeValue(String value) => _dropdownTypeValue = value;
+  // set dropdownTypeValue(String value) => _dropdownTypeValue = value;
 
   setDropDownQuality(val) {
     dropdownQualityValue = val;

@@ -14,8 +14,8 @@ import 'add_addon_screen.dart';
 
 //ignore: must_be_immutable
 class AddonScreen extends StatelessWidget {
-  AddonController _addOnScreenController;
-  double commonHeight;
+  late AddonController _addOnScreenController;
+  double? commonHeight;
 
   BoxShadow boxShad = BoxShadow(
       color: Colors.grey.withOpacity(0.5),
@@ -163,8 +163,8 @@ Widget _searchBarItems() {
             ),
           ),
           SizedBox(
-            width: Responsive.isMobile(Get.context) ||
-                    Responsive.isTablet(Get.context)
+            width: Responsive.isMobile(Get.context!) ||
+                    Responsive.isTablet(Get.context!)
                 ? 15
                 : 30,
           ),
@@ -198,7 +198,7 @@ Widget _searchBarItems() {
 
   
 
-  Widget _infoName({String text}) {
+  Widget _infoName({required String text}) {
     return Padding(
       padding: EdgeInsets.only(
         top: 15.0,

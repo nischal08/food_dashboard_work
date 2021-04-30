@@ -63,17 +63,17 @@ class CategoryController extends ChangeNotifier {
     notifyListeners();
   }
 
-  onAddCategoryClick({bool flag}) {
+  onAddCategoryClick({bool? flag}) {
     addCategoryFlag =flag??( !addCategoryFlag);
     notifyListeners();
   }
 
-  String _categoryName, _chooseColor;
-  String get categoryName => _categoryName;
-  String get chooseColor => _chooseColor;
+  String? categoryName, chooseColor;
+  // String? get categoryName => _categoryName;
+  // String? get chooseColor => _chooseColor;
 
-  set categoryName(String value) => _categoryName = value;
-  set chooseColor(String value) => _chooseColor = value;
+  // set categoryName(String? value) => _categoryName = value;
+  // set chooseColor(String? value) => _chooseColor = value;
 
   setName(String val) {
     categoryName = val;

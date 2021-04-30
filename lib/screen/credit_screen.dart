@@ -11,11 +11,11 @@ import 'package:provider/provider.dart';
 
 // ignore: must_be_immutable
 class CreditDashboard extends StatelessWidget {
-  CreditController _adminControllerState;
+  late CreditController _adminControllerState;
 
-  CreditController adminController;
-  double height;
-  double width;
+  CreditController? adminController;
+  double? height;
+  double? width;
   bool isMenuFixed(BuildContext context) {
     return MediaQuery.of(context).size.width > 500;
   }
@@ -97,7 +97,7 @@ class CreditDashboard extends StatelessWidget {
     );
   }
 
-  Widget _recentsTransaction({String text}) {
+  Widget _recentsTransaction({required String text}) {
     return Container(
       width: 270,
       height: 260,
@@ -171,7 +171,7 @@ class CreditDashboard extends StatelessWidget {
     );
   }
 
-  Widget _recentsPending({String text}) {
+  Widget _recentsPending({required String text}) {
     return Container(
       width: 270,
       height: 260,
@@ -219,7 +219,7 @@ class CreditDashboard extends StatelessWidget {
     );
   }
 
-  Widget _customerStat({double customHeight}) {
+  Widget _customerStat({ double ?customHeight}) {
     return Container(
       padding: EdgeInsets.all(10.0),
       height: customHeight ?? 260,
@@ -239,7 +239,7 @@ class CreditDashboard extends StatelessWidget {
   }
 
   Widget _eachUserPayDetail(
-      {String name, String paymentGetway, String amount}) {
+      {required String name,  String? paymentGetway, required String amount}) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -320,7 +320,7 @@ class CreditDashboard extends StatelessWidget {
             4: FlexColumnWidth(1.3),
             5: FlexColumnWidth(1.5),
             6: FlexColumnWidth(1.5),
-            7: FlexColumnWidth(Responsive.isDesktop(Get.context) ? 0.8 : 1.3),
+            7: FlexColumnWidth(Responsive.isDesktop(Get.context!) ? 0.8 : 1.3),
           },
           border: TableBorder(
             horizontalInside:
@@ -342,7 +342,7 @@ class CreditDashboard extends StatelessWidget {
                   ),
                 ))
             ]),
-            for (List eachList in _adminControllerState.infoList)
+            for (List eachList in _adminControllerState.infoList )
               TableRow(
                 children: [
                   for (var each in eachList)
@@ -367,7 +367,7 @@ class CreditDashboard extends StatelessWidget {
     );
   }
 
-  Widget _clientInfoName({String text}) {
+  Widget _clientInfoName({required String text}) {
     return Padding(
       padding: EdgeInsets.only(
         top: 23.0,

@@ -7,20 +7,20 @@ import 'package:food/screen/order_screen.dart';
 import 'package:food/screen/setting_screen.dart';
 
 class HomeController extends ChangeNotifier {
-  int _currentIndex = 2;
+  int currentMenuItemIndex = 2;
 
-  int _currentProductIndex;
+  late int currentProductIndex = 0;
 
-  int get currentProductIndex => _currentProductIndex;
+  // int get currentProductIndex => _currentProductIndex;
 
-  set currentProductIndex(int value) => _currentProductIndex = value;
+  // set currentProductIndex(int value) => _currentProductIndex = value;
 
-  int get currentMenuItemIndex => _currentIndex;
+  // int get currentMenuItemIndex => _currentIndex;
 
-  bool _productToggleFlag = false;
-  bool get productToggleFlag => _productToggleFlag;
+  bool productToggleFlag = false;
+  // bool get productToggleFlag => _productToggleFlag;
 
-  set productToggleFlag(bool value) => _productToggleFlag = value;
+  // set productToggleFlag(bool value) => _productToggleFlag = value;
 
   List productList = [
     "Categories",
@@ -51,9 +51,9 @@ class HomeController extends ChangeNotifier {
 
   List get screensList => _screens;
 
-  set currentMenuItemIndex(int value) {
-    _currentIndex = value;
-  }
+  // set currentMenuItemIndex(int value) {
+  //   _currentIndex = value;
+  // }
 
   void onProductToggle() {
     productToggleFlag = !productToggleFlag;

@@ -5,12 +5,13 @@ import 'package:food/util/searchBarItems.dart';
 
 import 'customWidgets.dart';
 
+// ignore: must_be_immutable
 class CreditSearchbarSection extends StatelessWidget {
-  double _commonHeight;
+  double? _commonHeight;
   @override
   Widget build(BuildContext context) {
     _commonHeight = 35.0;
-
+// Node.ATTRIBUTE_NODE=key(23092)
     return Row(
       children: [
         Expanded(

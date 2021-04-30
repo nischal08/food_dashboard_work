@@ -9,7 +9,7 @@ import 'package:food/constants/customFonts.dart';
 import 'package:food/controller/addProductController.dart';
 import 'package:food/controller/homeController.dart';
 import 'package:food/controller/productController.dart';
-import 'package:food/controller/productScreenControllers/addonController.dart';
+// import 'package:food/controller/productScreenControllers/addonController.dart';
 import 'package:food/controller/productScreenControllers/categoryScreenController.dart';
 import 'package:food/responsive.dart';
 import 'package:food/util/customWidgets.dart';
@@ -18,11 +18,11 @@ import 'package:provider/provider.dart';
 
 // ignore: must_be_immutable
 class AddProductPage extends StatelessWidget {
-  AddProductController _addItemControllerState;
-  ProductController _productControllerState;
-  AddonController _addonControllerState;
-  CategoryController _categoryControllerState;
-  HomeController _homeControllerState;
+  late AddProductController _addItemControllerState;
+  late ProductController _productControllerState;
+  // AddonController? _addonControllerState;
+  late CategoryController _categoryControllerState;
+  late HomeController _homeControllerState;
 
   var commonHeight;
   @override
@@ -31,7 +31,7 @@ class AddProductPage extends StatelessWidget {
 
     _addItemControllerState = Provider.of<AddProductController>(context);
     _productControllerState = Provider.of<ProductController>(context);
-    _addonControllerState = Provider.of<AddonController>(context);
+    // _addonControllerState = Provider.of<AddonController>(context);
     _categoryControllerState = Provider.of<CategoryController>(context);
     _homeControllerState = Provider.of<HomeController>(context);
 
@@ -215,7 +215,7 @@ class AddProductPage extends StatelessWidget {
       ),
       height: 414,
       padding: EdgeInsets.symmetric(
-          horizontal: Responsive.isDesktop(Get.context) ? 35 : 50),
+          horizontal: Responsive.isDesktop(Get.context!) ? 35 : 50),
       child: Column(
         children: [
           SizedBox(
@@ -308,10 +308,10 @@ class AddProductPage extends StatelessWidget {
   }
 
   Widget _eachBoxImg(
-      {BoxShape boxShape,
-      double circleRadiusVal,
-      BorderType borderType,
-      String label}) {
+      {BoxShape? boxShape,
+      double? circleRadiusVal,
+      BorderType? borderType,
+      required String label}) {
     return _addItemControllerState.image == null
         ? Container(
             decoration: BoxDecoration(
@@ -483,11 +483,11 @@ class AddProductPage extends StatelessWidget {
       padding: EdgeInsets.only(
         top: 10,
         bottom: 10,
-        right: Responsive.isDesktop(Get.context) ? 20 : 15,
-        left: Responsive.isDesktop(Get.context) ? 20 : 15,
+        right: Responsive.isDesktop(Get.context!) ? 20 : 15,
+        left: Responsive.isDesktop(Get.context!) ? 20 : 15,
       ),
       child: Wrap(direction: Axis.horizontal, children: [
-        ..._addItemControllerState.categoryList.keys.map((String key) {
+        ..._addItemControllerState.categoryList.keys.map((String? key) {
           return key == "add"
               ? GestureDetector(
                   onTap: () {
@@ -499,7 +499,7 @@ class AddProductPage extends StatelessWidget {
                     
                   },
                   child: Padding(
-                    padding: Responsive.isDesktop(Get.context)
+                    padding: Responsive.isDesktop(Get.context!)
                         ? EdgeInsets.only(top: 8.0, left: 8.0)
                         : EdgeInsets.only(top: 15.0, left: 16.0),
                     child: Icon(
@@ -525,12 +525,12 @@ class AddProductPage extends StatelessWidget {
                           onChanged: (bool value) {
                             _addItemControllerState.onChangeCategoryState(
                                 newVal: value, currentKey: key);
-                          },
+                          } as void Function(bool?)?,
                         ),
                       ),
                       Expanded(
                         child: Text(
-                          key,
+                          key!,
                           style: TextStyle(fontSize: xBodyFont),
                         ),
                       ),
@@ -584,8 +584,8 @@ class AddProductPage extends StatelessWidget {
       padding: EdgeInsets.only(
         top: 10,
         bottom: 10,
-        right: Responsive.isDesktop(Get.context) ? 20 : 15,
-        left: Responsive.isDesktop(Get.context) ? 20 : 15,
+        right: Responsive.isDesktop(Get.context!) ? 20 : 15,
+        left: Responsive.isDesktop(Get.context!) ? 20 : 15,
       ),
       child: Wrap(direction: Axis.horizontal, children: [
         ..._addItemControllerState.addonsList.keys.map((String key) {
@@ -599,7 +599,7 @@ class AddProductPage extends StatelessWidget {
                     
                   },
                   child: Padding(
-                    padding: Responsive.isDesktop(Get.context)
+                    padding: Responsive.isDesktop(Get.context!)
                         ? EdgeInsets.only(top: 8.0, left: 8.0)
                         : EdgeInsets.only(top: 15.0, left: 16.0),
                     child: Icon(
@@ -625,7 +625,7 @@ class AddProductPage extends StatelessWidget {
                           onChanged: (bool value) {
                             _addItemControllerState.onChangeAddOnsState(
                                 newVal: value, currentKey: key);
-                          },
+                          } as void Function(bool?)?,
                         ),
                       ),
                       Expanded(
@@ -637,7 +637,7 @@ class AddProductPage extends StatelessWidget {
                     ],
                   ),
                 );
-        }).toList()
+        } as  Function(String?)).toList() as Iterable<Widget>
       ]),
     );
   }
@@ -647,7 +647,7 @@ class AddProductPage extends StatelessWidget {
       name: "Actual Price",
       hint: "Enter actual price",
       isNum: true,
-      onChange: (newVal) => _addItemControllerState.setActualPrice(newVal),
+      // onChange: (newVal) => _addItemControllerState.setActualPrice(newVal),
     );
   }
 
@@ -656,7 +656,7 @@ class AddProductPage extends StatelessWidget {
       name: "Offer price",
       hint: "Enter offer price",
       isNum: true,
-      onChange: (newVal) => _addItemControllerState.setActualPrice(newVal),
+      // onChange: (newVal) => _addItemControllerState.setActualPrice(newVal),
     );
   }
 
@@ -693,7 +693,7 @@ class AddProductPage extends StatelessWidget {
             underline: Container(
               width: 0,
             ),
-            onChanged: (newValue) {
+            onChanged: (dynamic newValue) {
               _addItemControllerState.setDropDownType(newValue);
             },
             value: _addItemControllerState.dropdownTypeValue,
@@ -723,7 +723,7 @@ class AddProductPage extends StatelessWidget {
     return eachTextFieldItem(
       name: "Item Name",
       hint: "Enter item Name",
-      onChange: (newVal) => _addItemControllerState.setName(newVal),
+      // onChange: (newVal) => _addItemControllerState.setName(newVal),
     );
   }
 
@@ -793,7 +793,7 @@ class AddProductPage extends StatelessWidget {
             underline: Container(
               width: 0,
             ),
-            onChanged: (newValue) {
+            onChanged: (dynamic newValue) {
               _addItemControllerState.setDropDownQuality(newValue);
             },
             value: _addItemControllerState.dropdownQualityValue,

@@ -8,10 +8,10 @@ double commonHeight = 35;
 
 class CustomCheckbox extends StatelessWidget {
   final bool checkValue;
-  final Function onCheckboxClick;
-  final Color bgColor;
+  final Function? onCheckboxClick;
+  final Color? bgColor;
   CustomCheckbox({
-    this.checkValue,
+    required this.checkValue,
     this.onCheckboxClick,
     this.bgColor,
   });
@@ -19,7 +19,7 @@ class CustomCheckbox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onCheckboxClick,
+      onTap: onCheckboxClick as void Function()?,
       child: Container(
         height: 15,
         width: 15,
@@ -48,7 +48,12 @@ class CustomCheckbox extends StatelessWidget {
 }
 
 Widget eachTextFieldItem(
-    {String name, String hint, bool isNum = false, Function onChange(newVal)}) {
+    {required String name,
+    String? hint,
+    bool isNum = false,
+    // Function onChange(newVal)?,
+    String? Function(String?)? validator,
+    TextEditingController? controller}) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
@@ -60,11 +65,10 @@ Widget eachTextFieldItem(
         height: 10,
       ),
       Container(
-        height: 35,
         child: TextFormField(
-          onChanged: (String newVal) {
-            onChange(newVal);
-          },
+          // onChanged: onChange,
+          controller: controller,
+          validator: validator,
           keyboardType: isNum ? TextInputType.number : TextInputType.name,
           inputFormatters: isNum
               ? <TextInputFormatter>[
@@ -89,9 +93,9 @@ Widget eachTextFieldItem(
   );
 }
 
-Widget backBtn({Function onPressed, String name}) {
+Widget backBtn({Function? onPressed, String? name}) {
   return GestureDetector(
-    onTap: onPressed,
+    onTap: onPressed as void Function()?,
     child: Container(
       child: Row(
         children: [
@@ -117,17 +121,17 @@ Widget backBtn({Function onPressed, String name}) {
 }
 
 Widget customSaveBtn({
-  Function onPressed,
-  String name,
-  Color color,
-  Color textColor,
-  double fontSize,
+  Function? onPressed,
+  String? name,
+  Color? color,
+  Color? textColor,
+  double? fontSize,
 }) {
   return Container(
     width: 130,
     height: commonHeight,
     child: RaisedButton(
-      onPressed: onPressed,
+      onPressed: onPressed as void Function()?,
       elevation: 1,
       child: Text(
         name ?? "Save Item",
@@ -144,8 +148,8 @@ Widget customSaveBtn({
 }
 
 Widget uploadImgBtn({
-  Function onPressed,
-  double fontSize,
+  Function? onPressed,
+  double? fontSize,
 }) {
   return Container(
     height: commonHeight,
@@ -153,7 +157,7 @@ Widget uploadImgBtn({
       color: CustomColors.colorInfoThumbnailHeader,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
       elevation: 0,
-      onPressed: onPressed,
+      onPressed: onPressed as void Function()?,
       icon: Padding(
         padding: const EdgeInsets.only(left: 5),
         child: Icon(
@@ -196,7 +200,7 @@ class AddEntriesBtn extends StatelessWidget {
 }
 
 class EntriesShowBtn extends StatelessWidget {
-  final int entries;
+  final int? entries;
   EntriesShowBtn({this.entries});
   @override
   Widget build(BuildContext context) {
@@ -225,13 +229,13 @@ class EntriesShowBtn extends StatelessWidget {
   }
 }
 
-Widget addnewBtn({Function onPress}) {
+Widget addnewBtn({Function? onPress}) {
   return Container(
     width: 130.0,
     height: commonHeight,
     child: RaisedButton(
       elevation: 1,
-      onPressed: onPress,
+      onPressed: onPress as void Function()?,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -262,23 +266,23 @@ Widget customFixedDivider() {
   );
 }
 
-Text customBoldText({String text}) {
+Text customBoldText({required String text}) {
   return Text(
     text,
     style: TextStyle(fontWeight: FontWeight.bold, fontSize: xHeaderFont),
   );
 }
 
-Widget customSizedBoxed({double height, double width}) {
+Widget customSizedBoxed({double? height, double? width}) {
   return SizedBox(height: height, width: width);
 }
 
-Widget actionButtons({Function onPressDelete, Function onPressEdit}) {
+Widget actionButtons({Function? onPressDelete, Function? onPressEdit}) {
   return (Row(
     mainAxisAlignment: MainAxisAlignment.start,
     children: [
       GestureDetector(
-        onTap: onPressEdit,
+        onTap: onPressEdit as void Function()?,
         child: Container(
           width: 15,
           height: 15,
@@ -292,7 +296,7 @@ Widget actionButtons({Function onPressDelete, Function onPressEdit}) {
         width: 15.0,
       ),
       GestureDetector(
-        onTap: onPressDelete,
+        onTap: onPressDelete as void Function()?,
         child: Container(
           width: 15,
           height: 15,

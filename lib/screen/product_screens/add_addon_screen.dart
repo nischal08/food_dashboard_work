@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:food/constants/constants.dart';
+// import 'package:food/constants/constants.dart';
 import 'package:food/constants/customColors.dart';
 import 'package:food/constants/customFonts.dart';
 import 'package:food/controller/productScreenControllers/addonController.dart';
@@ -10,7 +10,7 @@ import 'package:provider/provider.dart';
 
 // ignore: must_be_immutable
 class AddAddonScreen extends StatelessWidget {
-  AddonController _addOnScreenController;
+  late AddonController _addOnScreenController;
 
 
   var commonHeight;
@@ -147,27 +147,31 @@ class AddAddonScreen extends StatelessWidget {
     return eachTextFieldItem(
         name: "Addon Item Name",
         hint: "Enter category name",
-        onChange: (newVal) => _addOnScreenController.setItem(newVal));
+        // onChange: (newVal) => _addOnScreenController.setItem(newVal)
+        );
   }
 
   Widget _addonLimit() {
     return eachTextFieldItem(
         name: "Item Limit",
         hint: "Set Item Limit",
-        onChange: (newVal) => _addOnScreenController.setItem(newVal));
+        // onChange: (newVal) => _addOnScreenController.setItem(newVal)
+        );
   }
 
   Widget _addonDesc() {
     return eachTextFieldItem(
         name: "Description",
         hint: "Enter Discription",
-        onChange: (newVal) => _addOnScreenController.setItem(newVal));
+        // onChange: (newVal) => _addOnScreenController.setItem(newVal)
+        );
   }
 
   Widget _addonPrice() {
     return eachTextFieldItem(
         name: "Price",
         hint: "Enter Price",
-        onChange: (newVal) => _addOnScreenController.setItem(newVal));
+        // onChange: (newVal) => _addOnScreenController.setItem(newVal)
+        );
   }
 }

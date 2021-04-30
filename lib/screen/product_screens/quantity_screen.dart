@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:food/classes/quantity.dart';
 import 'package:food/constants/constants.dart';
 import 'package:food/constants/customColors.dart';
 import 'package:food/constants/customFonts.dart';
@@ -13,15 +14,18 @@ import 'package:provider/provider.dart';
 
 // ignore: must_be_immutable
 class QuantityScreen extends StatelessWidget {
-  QuantityController _quantityControllerState;
-  // AddProductController _addProductControllerState;
+  late QuantityController _quantityControllerState;
 
-  double commonHeight;
+  double? commonHeight;
 
   @override
   Widget build(BuildContext context) {
     _quantityControllerState = Provider.of<QuantityController>(context);
-    // _addProductControllerState = Provider.of<AddProductController>(context);
+    Quantity.getAll().then((value) {
+      _quantityControllerState.setQuantityInfoList = value;
+    }).catchError((err) {
+      print(err);
+    });
     commonHeight = 35;
 
     return _body();
@@ -110,14 +114,14 @@ class QuantityScreen extends StatelessWidget {
                       verticalAlignment: TableCellVerticalAlignment.middle,
                       child: Padding(
                         padding: const EdgeInsets.all(6.0),
-                        child: _quantityName(text: each),
+                        child: _quantityName(text: each.name),
                       )),
                   TableCell(
                     verticalAlignment: TableCellVerticalAlignment.middle,
                     child: actionButtons(onPressDelete: () {
-                      _quantityControllerState.deleteProduct(
-                          _quantityControllerState.quantityInfoList
-                              .indexOf(each));
+                      _quantityControllerState.deleteProduct(each);
+                    }, onPressEdit: () {
+                      _quantityControllerState.editProduct(each);
                     }),
                   )
                 ]),
@@ -128,7 +132,7 @@ class QuantityScreen extends StatelessWidget {
     );
   }
 
-  Widget _quantityName({String text}) {
+  Widget _quantityName({required String text}) {
     return Padding(
       padding: EdgeInsets.only(
         top: 15.0,
@@ -158,8 +162,8 @@ class QuantityScreen extends StatelessWidget {
             ),
           ),
           SizedBox(
-            width: Responsive.isMobile(Get.context) ||
-                    Responsive.isTablet(Get.context)
+            width: Responsive.isMobile(Get.context!) ||
+                    Responsive.isTablet(Get.context!)
                 ? 15
                 : 30,
           ),
@@ -169,7 +173,8 @@ class QuantityScreen extends StatelessWidget {
               child: Row(
                 children: [
                   EntriesShowBtn(
-                    entries: _quantityControllerState.getQuantityInfoList.length,
+                    entries:
+                        _quantityControllerState.getQuantityInfoList.length,
                   ),
                   SizedBox(
                     width: 5,
@@ -182,7 +187,7 @@ class QuantityScreen extends StatelessWidget {
           Container(
             child: addnewBtn(
               onPress: () {
-               _quantityControllerState.onAddQuantityClick();
+                _quantityControllerState.onAddQuantityClick();
               },
             ),
           ),
@@ -190,6 +195,4 @@ class QuantityScreen extends StatelessWidget {
       ),
     );
   }
-
- 
 }

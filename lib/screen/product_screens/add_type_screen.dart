@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:food/constants/constants.dart';
+// import 'package:food/constants/constants.dart';
 import 'package:food/constants/customColors.dart';
 import 'package:food/constants/customFonts.dart';
 import 'package:food/controller/productScreenControllers/typeController.dart';
@@ -11,10 +11,10 @@ import 'package:provider/provider.dart';
 
 // ignore: must_be_immutable
 class AddTypeScreen extends StatelessWidget {
-  TypeController _typeControllerState;
+  late TypeController _typeControllerState;
 
-  OutlineInputBorder kBorderInputData;
-  double bodyHeight;
+  OutlineInputBorder? kBorderInputData;
+  double? bodyHeight;
   var commonHeight;
   @override
   Widget build(BuildContext context) {
@@ -113,8 +113,8 @@ class AddTypeScreen extends StatelessWidget {
             padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 30),
             child: Text(
               "Item Type Information",
-              style: TextStyle(
-                  fontWeight: FontWeight.bold, fontSize: xHeaderFont),
+              style:
+                  TextStyle(fontWeight: FontWeight.bold, fontSize: xHeaderFont),
             ),
           ),
           _itemInfoBody()
@@ -125,7 +125,6 @@ class AddTypeScreen extends StatelessWidget {
 
   Widget _itemInfoBody() {
     return Container(
-     
       decoration: BoxDecoration(
         borderRadius: BorderRadius.only(
           bottomRight: Radius.circular(5),
@@ -151,7 +150,7 @@ class AddTypeScreen extends StatelessWidget {
     );
   }
 
-  Widget _uploadImg({String name}) {
+  Widget _uploadImg({required String name}) {
     return Container(
       child: Column(
         crossAxisAlignment: _typeControllerState.image == null
@@ -197,7 +196,7 @@ class AddTypeScreen extends StatelessWidget {
     return eachTextFieldItem(
       name: "Item Type Name",
       hint: "Enter item type",
-      onChange: (newVal) => _typeControllerState.setName(newVal),
+      // onChange: (newVal) => _typeControllerState.setName(newVal),
     );
   }
 }

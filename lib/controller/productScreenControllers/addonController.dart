@@ -30,7 +30,7 @@ class AddonController extends ChangeNotifier {
     notifyListeners();
   }
 
-  onAddItemClick({bool flag}) {
+  onAddItemClick({bool? flag}) {
     addOnScreenFlag = flag ?? (!addOnScreenFlag);
     notifyListeners();
   }
@@ -40,23 +40,23 @@ class AddonController extends ChangeNotifier {
     notifyListeners();
   }
 
-  String _itemHead;
+  String? itemHead;
 
-  String get itemHead => _itemHead;
+  // String? get itemHead => _itemHead;
 
-  set itemHead(String value) {
-    _itemHead = value;
-    setHead(String val) {
-      itemHead = val;
-      notifyListeners();
-      print(itemHead);
-    }
-  }
+  // set itemHead(String? value) {
+  //   _itemHead = value;
+  //   // setHead(String val) {
+  //   //   itemHead = val;
+  //   //   notifyListeners();
+  //   //   print(itemHead);
+  //   // }
+  // }
 
-  String _itemInfo;
-  String get itemInfo => _itemInfo;
+  late String itemInfo;
+  // String get itemInfo => _itemInfo;
 
-  set itemInfo(String value) => _itemInfo = value;
+  // set itemInfo(String value) => _itemInfo = value;
   setItem(String val) {
     itemInfo = val;
     notifyListeners();

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:food/constants/constants.dart';
 import 'package:food/constants/customColors.dart';
 import 'package:food/constants/customFonts.dart';
-import 'package:food/controller/addProductController.dart';
+// import 'package:food/controller/addProductController.dart';
 import 'package:food/controller/productController.dart';
 import 'package:food/responsive.dart';
 import 'package:food/screen/addProductScreen.dart';
@@ -14,15 +14,15 @@ import 'package:provider/provider.dart';
 
 // ignore: must_be_immutable
 class ProductScreen extends StatelessWidget {
-  ProductController _productControllerState;
-  AddProductController _addProductControllerState;
+  late ProductController _productControllerState;
+  // AddProductController? _addProductControllerState;
 
-  double commonHeight;
+  double? commonHeight;
 
   @override
   Widget build(BuildContext context) {
     _productControllerState = Provider.of<ProductController>(context);
-    _addProductControllerState = Provider.of<AddProductController>(context);
+    // _addProductControllerState = Provider.of<AddProductController>(context);
 
     return _body();
   }
@@ -36,13 +36,13 @@ class ProductScreen extends StatelessWidget {
               child: SingleChildScrollView(
                 child: Container(
                   padding: EdgeInsets.symmetric(
-                      horizontal: Responsive.isMobile(Get.context) ? 15 : 32,
-                      vertical: Responsive.isMobile(Get.context) ? 12 : 25),
+                      horizontal: Responsive.isMobile(Get.context!) ? 15 : 32,
+                      vertical: Responsive.isMobile(Get.context!) ? 12 : 25),
                   child: Column(
                     children: [
                       _searchBarItems(),
                       SizedBox(
-                        height: Responsive.isMobile(Get.context) ? 12 : 25,
+                        height: Responsive.isMobile(Get.context!) ? 12 : 25,
                       ),
                       _foodDataTable(),
                     ],
@@ -66,15 +66,15 @@ class ProductScreen extends StatelessWidget {
         padding: EdgeInsets.symmetric(vertical: 13.0, horizontal: 19),
         child: Table(
           columnWidths: {
-            0: FlexColumnWidth(Responsive.isDesktop(Get.context) ? 70 : 95),
+            0: FlexColumnWidth(Responsive.isDesktop(Get.context!) ? 70 : 95),
             1: FlexColumnWidth(76),
-            2: FlexColumnWidth(Responsive.isDesktop(Get.context) ? 140 : 165),
-            3: FlexColumnWidth(Responsive.isDesktop(Get.context) ? 130 : 116),
-            4: FlexColumnWidth(Responsive.isDesktop(Get.context) ? 151 : 110),
+            2: FlexColumnWidth(Responsive.isDesktop(Get.context!) ? 140 : 165),
+            3: FlexColumnWidth(Responsive.isDesktop(Get.context!) ? 130 : 116),
+            4: FlexColumnWidth(Responsive.isDesktop(Get.context!) ? 151 : 110),
             5: FlexColumnWidth(100),
-            6: FlexColumnWidth(Responsive.isDesktop(Get.context) ? 114 : 100),
-            7: FlexColumnWidth(Responsive.isDesktop(Get.context) ? 132 : 120),
-            8: FlexColumnWidth(Responsive.isDesktop(Get.context) ? 48 : 83),
+            6: FlexColumnWidth(Responsive.isDesktop(Get.context!) ? 114 : 100),
+            7: FlexColumnWidth(Responsive.isDesktop(Get.context!) ? 132 : 120),
+            8: FlexColumnWidth(Responsive.isDesktop(Get.context!) ? 48 : 83),
           },
           border: TableBorder(
             horizontalInside:
@@ -158,7 +158,7 @@ class ProductScreen extends StatelessWidget {
                   child: Row(
                     children: [
                       SizedBox(
-                        width: Responsive.isDesktop(Get.context) ? 35 : 20,
+                        width: Responsive.isDesktop(Get.context!) ? 35 : 20,
                       ),
                       _productNotAvail()
                     ],
@@ -188,7 +188,7 @@ class ProductScreen extends StatelessWidget {
     );
   }
 
-  Widget _productName({String text}) {
+  Widget _productName({required String text}) {
     return Padding(
       padding: EdgeInsets.only(
         top: 15.0,
@@ -207,7 +207,10 @@ class ProductScreen extends StatelessWidget {
   }
 
   Widget _foodImage(
-      {String url, BoxShape shape, double height, double bottomPadding}) {
+      {required String url,
+      BoxShape? shape,
+      double? height,
+      double? bottomPadding}) {
     return Container(
       margin: EdgeInsets.only(top: 16, bottom: bottomPadding ?? 16, right: 15),
       height: height ?? 30,
@@ -255,8 +258,8 @@ class ProductScreen extends StatelessWidget {
             ),
           ),
           SizedBox(
-            width: Responsive.isMobile(Get.context) ||
-                    Responsive.isTablet(Get.context)
+            width: Responsive.isMobile(Get.context!) ||
+                    Responsive.isTablet(Get.context!)
                 ? 15
                 : 30,
           ),

@@ -53,10 +53,10 @@ class TypeController extends ChangeNotifier {
     }
   }
 
-  String _typeName;
-  String get typeName => _typeName;
+  late String typeName;
+  // String get typeName => _typeName;
 
-  set typeName(String value) => _typeName = value;
+  // set typeName(String value) => _typeName = value;
   setName(String val) {
     typeName = val;
     notifyListeners();

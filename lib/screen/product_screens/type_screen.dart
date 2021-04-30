@@ -13,10 +13,10 @@ import 'package:provider/provider.dart';
 
 // ignore: must_be_immutable
 class TypeScreen extends StatelessWidget {
-  TypeController _typeControllerState;
+  late TypeController _typeControllerState;
   // AddProductController _addProductControllerState;
 
-  double commonHeight;
+  double? commonHeight;
 
   BoxShadow boxShad = BoxShadow(
       color: Colors.grey.withOpacity(0.5),
@@ -74,7 +74,7 @@ class TypeScreen extends StatelessWidget {
         color: Colors.white,
         borderRadius: BorderRadius.circular(5),
         boxShadow: [
-         kGeneralBoxShadow,
+          kGeneralBoxShadow,
         ],
       ),
 
@@ -104,7 +104,7 @@ class TypeScreen extends StatelessWidget {
                     TableCell(
                         child: Padding(
                       padding: EdgeInsets.only(
-                         top: 8,
+                        top: 8,
                         bottom: 13,
                       ),
                       child: Text(
@@ -163,7 +163,7 @@ class TypeScreen extends StatelessWidget {
     );
   }
 
-  Widget _typeName({String text}) {
+  Widget _typeName({required String text}) {
     return Padding(
       padding: EdgeInsets.only(
         top: 15.0,
@@ -175,13 +175,13 @@ class TypeScreen extends StatelessWidget {
           text,
           style: TextStyle(
             fontSize: xBodyFont,
-              ),
+          ),
         ),
       ),
     );
   }
 
-Widget _searchBarItems() {
+  Widget _searchBarItems() {
     return Container(
       child: Row(
         children: [
@@ -193,8 +193,8 @@ Widget _searchBarItems() {
             ),
           ),
           SizedBox(
-            width: Responsive.isMobile(Get.context) ||
-                    Responsive.isTablet(Get.context)
+            width: Responsive.isMobile(Get.context!) ||
+                    Responsive.isTablet(Get.context!)
                 ? 15
                 : 30,
           ),
@@ -225,6 +225,4 @@ Widget _searchBarItems() {
       ),
     );
   }
-
-  
 }

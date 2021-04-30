@@ -7,7 +7,7 @@ import 'package:food/screen/product_screens/quantity_screen.dart';
 import 'package:food/screen/product_screens/type_screen.dart';
 
 class ProductController extends ChangeNotifier {
-  int _currentProductIndex = 5;
+  int currentProductIndex = 5;
   bool addItemFlag = false;
 
   List productScreens = [
@@ -24,11 +24,11 @@ class ProductController extends ChangeNotifier {
     notifyListeners();
   }
 
-  int get currentProductIndex => _currentProductIndex;
+  // int get currentProductIndex => _currentProductIndex;
 
-  set currentProductIndex(int value) => _currentProductIndex = value;
+  // set currentProductIndex(int value) => _currentProductIndex = value;
 
-  double _checkIndex = 2;
+  // double _checkIndex = 2;
   bool tickState = false;
   List _urlList = [
     "assets/food/burger.png",

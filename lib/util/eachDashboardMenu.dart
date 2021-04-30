@@ -6,19 +6,20 @@ import 'package:food/controller/homeController.dart';
 import 'package:food/controller/productController.dart';
 import 'package:provider/provider.dart';
 
+// ignore: must_be_immutable
 class EachDashboardMenuItem extends StatelessWidget {
-  HomeController _homeControllerState;
-  ProductController _productControllerState;
+  late HomeController _homeControllerState;
+  late ProductController _productControllerState;
   final String icons;
   final String text;
   final int index;
-  final IconData trailling;
+  IconData? trailling;
 
   EachDashboardMenuItem({
-    this.icons,
-    this.text,
-    this.index,
-    this.trailling,
+    required this.icons,
+    required this.text,
+    required this.index,
+     this.trailling,
   });
   @override
   Widget build(BuildContext context) {

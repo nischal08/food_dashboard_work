@@ -17,9 +17,9 @@ class AddCategoryScreen extends StatefulWidget {
 }
 
 class _AddCategoryScreenState extends State<AddCategoryScreen> {
-  CategoryController _categoryControllerState;
+  late CategoryController _categoryControllerState;
 
-  OutlineInputBorder kBorderOutlineTextField;
+  OutlineInputBorder? kBorderOutlineTextField;
 
   var commonHeight;
 
@@ -172,9 +172,9 @@ class _AddCategoryScreenState extends State<AddCategoryScreen> {
   }
 
    Widget _eachBoxImg(
-      {BoxShape boxShape,
-      BorderType borderType,
-      String label}) {
+      {BoxShape? boxShape,
+      BorderType? borderType,
+      required String label}) {
     return _categoryControllerState.image == null
         ? Container(
             decoration: BoxDecoration(
@@ -214,7 +214,7 @@ class _AddCategoryScreenState extends State<AddCategoryScreen> {
     return eachTextFieldItem(
       name: "Category Name",
       hint: "Enter Category Name",
-      onChange: (newVal) => _categoryControllerState.setName(newVal),
+      // onChange: (newVal) => _categoryControllerState.setName(newVal),
     );
   }
 
@@ -228,7 +228,7 @@ class _AddCategoryScreenState extends State<AddCategoryScreen> {
     return _thumbnail(name: "Choose Thumbnail");
   }
 
-  Widget _colorChoose({String name, Function onChange(newVal)}) {
+  Widget _colorChoose({required String name}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -253,7 +253,7 @@ class _AddCategoryScreenState extends State<AddCategoryScreen> {
     );
   }
 
-  Widget _thumbnail({String name}) {
+  Widget _thumbnail({required String name}) {
     return Container(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,

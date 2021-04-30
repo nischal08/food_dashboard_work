@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:food/classes/quantity.dart';
+// import 'package:jsend/api_request.dart';
 
 class QuantityController extends ChangeNotifier {
-  List quantityInfoList = [
-    "Per plate ",
-    "A bowl",
-    "10 pieces",
-    "2 Large",
-  ];
+  List quantityInfoList = [];
 
   bool addQualtityFlag = false;
 
+  Quantity? toEdit;
+
   List infoHeadList = [
-    "Total Quantity",
+    "Quantity Name",
     "Actions",
   ];
   List get getInfoHeadList => infoHeadList;
@@ -19,23 +18,41 @@ class QuantityController extends ChangeNotifier {
   set setInfoHeadList(List infoHeadList) => this.infoHeadList = infoHeadList;
   List get getQuantityInfoList => quantityInfoList;
 
-  set setQuantityInfoList(List quantityInfoList) =>
-      this.quantityInfoList = quantityInfoList;
+  set setQuantityInfoList(List quantityInfoList) {
+    if (this.quantityInfoList.length == quantityInfoList.length) {
+      print("cancelling update since same length.");
+      return;
+    }
+    this.quantityInfoList = quantityInfoList;
+    print("from set list");
 
-  deleteProduct(int index) {
-    quantityInfoList.removeAt(index);
     notifyListeners();
   }
 
-  onAddQuantityClick() {
+  deleteProduct(Quantity q) async {
+    await Quantity.remove(q);
+    print("from delete");
+
+    notifyListeners();
+  }
+
+  editProduct(Quantity q) {
     addQualtityFlag = !addQualtityFlag;
+    toEdit = q;
     notifyListeners();
   }
 
-  String _quantityName;
- String get quantityName => _quantityName;
+  onAddQuantityClick([bool added = false]) async {
+    addQualtityFlag = !addQualtityFlag;
 
- set quantityName(String value) => _quantityName = value;
+    print("from add");
+    if (added) {
+      await Quantity.allFromServer(true);
+    }
+    notifyListeners();
+  }
+
+  String? quantityName;
   setName(String val) {
     quantityName = val;
     notifyListeners();

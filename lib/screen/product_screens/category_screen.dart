@@ -13,10 +13,10 @@ import 'package:provider/provider.dart';
 
 // ignore: must_be_immutable
 class CategoryScreen extends StatelessWidget {
-  CategoryController _categoryControllerState;
+  late CategoryController _categoryControllerState;
   // AddProductController _addProductControllerState;
 
-  double commonHeight;
+  double? commonHeight;
 
   @override
   Widget build(BuildContext context) {
@@ -163,8 +163,8 @@ class CategoryScreen extends StatelessWidget {
             ),
           ),
           SizedBox(
-            width: Responsive.isMobile(Get.context) ||
-                    Responsive.isTablet(Get.context)
+            width: Responsive.isMobile(Get.context!) ||
+                    Responsive.isTablet(Get.context!)
                 ? 15
                 : 30,
           ),
@@ -196,7 +196,7 @@ class CategoryScreen extends StatelessWidget {
     );
   }
 
-  Widget _categoryName({String text}) {
+  Widget _categoryName({required String text}) {
     return Padding(
       padding: EdgeInsets.only(
         top: 15.0,

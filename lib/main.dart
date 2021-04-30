@@ -9,12 +9,14 @@ import 'package:food/controller/productScreenControllers/typeController.dart';
 import 'package:food/screen/home.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:jsend/api_request.dart';
 import 'package:provider/provider.dart';
 
 import 'controller/homeController.dart';
 import 'controller/productController.dart';
 
 void main() {
+  APIRequest.base = 'http://192.168.1.70:5000/api/dalle/';
   runApp(
     MultiProvider(
       providers: [
@@ -48,6 +50,7 @@ void main() {
   );
 }
 
+// ignore: must_be_immutable
 class MyApp extends StatelessWidget {
   bool changeColor = false;
   // This widget is the root of your application.

@@ -12,13 +12,14 @@ import 'package:get/get.dart';
 
 import 'package:provider/provider.dart';
 
+// ignore: must_be_immutable
 class HomePage extends StatelessWidget {
-  HomeController _homeControllerState;
-  ProductController _productControllerState;
+  late HomeController _homeControllerState;
+  late ProductController _productControllerState;
 
   var realOrientation;
-  double height;
-  double width;
+  double? height;
+  double? width;
 
   bool isMenuFixed(BuildContext context) {
     return MediaQuery.of(context).size.width > 500;
@@ -207,7 +208,7 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  _eachProductMenuItem({String label, int index}) {
+  _eachProductMenuItem({required String label, required int index}) {
     return GestureDetector(
       onTap: () {
         _homeControllerState.onSelectProductMenu(index);
