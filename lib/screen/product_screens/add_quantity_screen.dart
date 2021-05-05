@@ -4,16 +4,16 @@ import 'package:food/constants/constants.dart';
 import 'package:food/constants/customColors.dart';
 import 'package:food/constants/customFonts.dart';
 import 'package:food/controller/productScreenControllers/quantityScreenController.dart';
+import 'package:food/tools/custom_toast.dart';
 import 'package:food/util/customWidgets.dart';
 import 'package:get/get.dart';
 import 'package:jsend/api_request.dart';
 import 'package:jsend/jsend.dart';
 import 'package:provider/provider.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+// import 'package:fluttertoast/fluttertoast.dart';
 
 // ignore: must_be_immutable
 class AddQuantityScreen extends StatelessWidget {
-  FToast fToast = FToast();
   late QuantityController _quantityControllerState;
   final formKey = GlobalKey<FormState>();
   var nameController = TextEditingController();
@@ -24,51 +24,12 @@ class AddQuantityScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     commonHeight = 35.0;
-    if (fToast.context == null) fToast.init(context);
     _quantityControllerState = Provider.of<QuantityController>(context);
     if (_quantityControllerState.toEdit != null) {
       nameController.text = _quantityControllerState.toEdit!.name;
     }
 
     return _body(context);
-  }
-
-  _showToast() {
-    Widget toast = Container(
-      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(25.0),
-        color: Colors.greenAccent,
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(Icons.check),
-          SizedBox(
-            width: 12.0,
-          ),
-          Text("This is a Custom Toast"),
-        ],
-      ),
-    );
-
-    fToast.showToast(
-      child: toast,
-      gravity: ToastGravity.BOTTOM,
-      toastDuration: Duration(seconds: 2),
-    );
-
-    // Custom Toast Position
-    fToast.showToast(
-        child: toast,
-        toastDuration: Duration(seconds: 2),
-        positionedToastBuilder: (context, child) {
-          return Positioned(
-            child: child,
-            top: 16.0,
-            left: 16.0,
-          );
-        });
   }
 
   Widget _body(context) {
@@ -109,14 +70,30 @@ class AddQuantityScreen extends StatelessWidget {
                         resp = await req.send();
                         lastResponse = jsendResponse(resp);
                         if (lastResponse!.status == 'success') {
-                          _quantityControllerState.toEdit!.name =
-                              nameController.text;
-                          // _showToast();
+                          if (_quantityControllerState.toEdit != null)
+                            _quantityControllerState.toEdit!.name =
+                                nameController.text;
+                          CustomToast(
+                            message: ((_quantityControllerState.toEdit == null)
+                                    ? 'Added'
+                                    : 'Edited') +
+                                ' Successfully',
+                            type: ToastType.success,
+                            context: context,
+                          ).show();
                           _quantityControllerState.toEdit = null;
                           _quantityControllerState.onAddQuantityClick(true);
                         } else if (lastResponse!.status == 'fail') {
                           formKey.currentState!.validate();
                           lastResponse = null;
+                        } else {
+                          if (lastResponse!.message != null) {
+                            CustomToast(
+                              message: 'Error: ' + lastResponse!.message!,
+                              type: ToastType.error,
+                              context: context,
+                            ).show();
+                          }
                         }
                       } else {
                         print("invalid data");
@@ -206,9 +183,6 @@ class AddQuantityScreen extends StatelessWidget {
     return Form(
       key: formKey,
       child: eachTextFieldItem(
-          // onChange: (newVal) {
-          //   print(newVal);
-          // },
           name: "Quantity Name",
           hint: "Enter quantity name",
           validator: (value) {

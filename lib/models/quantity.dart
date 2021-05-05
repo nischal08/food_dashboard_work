@@ -37,7 +37,7 @@ class Quantity {
     if (!all.contains(q)) all.add(q);
   }
 
-  static Future<void> remove(Quantity q) async {
+  static Future<bool> remove(Quantity q) async {
     print('Removing ' + q.name);
 
     if (all.contains(q)) {
@@ -47,12 +47,14 @@ class Quantity {
       if (jsonR.status == 'success') {
         print("deleted");
         all.remove(q);
+        return true;
       } else {
         print(jsonR.toString());
       }
     } else {
       print('Invalid quantity to remove');
     }
+    return false;
   }
 
   static Future<List<Quantity>> getAll() async {

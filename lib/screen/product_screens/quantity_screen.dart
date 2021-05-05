@@ -1,12 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:food/classes/quantity.dart';
+import 'package:food/models/quantity.dart';
 import 'package:food/constants/constants.dart';
 import 'package:food/constants/customColors.dart';
 import 'package:food/constants/customFonts.dart';
 import 'package:food/controller/productScreenControllers/quantityScreenController.dart';
 import 'package:food/responsive.dart';
 import 'package:food/screen/product_screens/add_quantity_screen.dart';
+import 'package:food/tools/custom_toast.dart';
 import 'package:food/util/customWidgets.dart';
 import 'package:food/util/searchBarItems.dart';
 import 'package:get/get.dart';
@@ -28,10 +29,10 @@ class QuantityScreen extends StatelessWidget {
     });
     commonHeight = 35;
 
-    return _body();
+    return _body(context);
   }
 
-  Widget _body() {
+  Widget _body(BuildContext context) {
     return _quantityControllerState.addQualtityFlag
         ? Expanded(
             child: AddQuantityScreen(),
@@ -54,7 +55,7 @@ class QuantityScreen extends StatelessWidget {
                         height: 25,
                       ),
                       Container(
-                        child: _quantityDataTable(),
+                        child: _quantityDataTable(context),
                       ),
                     ],
                   ),
@@ -64,7 +65,7 @@ class QuantityScreen extends StatelessWidget {
           );
   }
 
-  Widget _quantityDataTable() {
+  Widget _quantityDataTable(BuildContext context) {
     return Container(
       width: 250,
       decoration: BoxDecoration(
@@ -118,8 +119,14 @@ class QuantityScreen extends StatelessWidget {
                       )),
                   TableCell(
                     verticalAlignment: TableCellVerticalAlignment.middle,
-                    child: actionButtons(onPressDelete: () {
-                      _quantityControllerState.deleteProduct(each);
+                    child: actionButtons(onPressDelete: () async {
+                      var deleted =
+                          await _quantityControllerState.deleteProduct(each);
+                      CustomToast(
+                        context: context,
+                        message: deleted ? "Deleted" : "Error deleting",
+                        type: deleted ? ToastType.success : ToastType.error,
+                      ).show();
                     }, onPressEdit: () {
                       _quantityControllerState.editProduct(each);
                     }),

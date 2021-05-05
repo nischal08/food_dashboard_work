@@ -16,7 +16,7 @@ import 'controller/homeController.dart';
 import 'controller/productController.dart';
 
 void main() {
-  APIRequest.base = 'http://192.168.1.70:5000/api/dalle/';
+  APIRequest.base = 'http://192.168.98.2:5000/api/dalle/';
   runApp(
     MultiProvider(
       providers: [

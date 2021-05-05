@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:food/classes/quantity.dart';
+import 'package:food/models/quantity.dart';
 // import 'package:jsend/api_request.dart';
 
 class QuantityController extends ChangeNotifier {
@@ -29,11 +29,12 @@ class QuantityController extends ChangeNotifier {
     notifyListeners();
   }
 
-  deleteProduct(Quantity q) async {
-    await Quantity.remove(q);
+  Future<bool> deleteProduct(Quantity q) async {
+    var deleted = await Quantity.remove(q);
     print("from delete");
 
     notifyListeners();
+    return deleted;
   }
 
   editProduct(Quantity q) {
